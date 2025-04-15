@@ -18,10 +18,12 @@ const Profile = () => {
 };
 
 function Main() {
-  const [isEditing, setIsEditing] = useState(false);
-  const [passwordVisible, setPasswordVisible] = useState(false);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [isEditing, setIsEditing] = useState(false);  // State to manage editing mode
 
+  const [passwordVisible, setPasswordVisible] = useState(false);// State to manage password visibility
+  const [selectedFile, setSelectedFile] = useState(null);// State to store Selected File Temporary
+
+// State to store user data
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -29,7 +31,7 @@ function Main() {
     phoneNo: "",
     bio: "",
     profilePic: "",
-  });
+});
 
   // Handle input changes
   const handleChange = (e) => {
@@ -308,7 +310,7 @@ function Main() {
                 onChange={handleChange}
                 className="form-control mb-3"
                 placeholder="Enter bio"
-                rows="2"
+                rows="3"
               ></textarea>
 
               {errors.bio && (
