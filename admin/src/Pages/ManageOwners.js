@@ -113,7 +113,7 @@ function Main() {
   };
 
   return (
-    <div className="right_col" role="main" style={{ minHeight: "110vh" }}>
+    <div className="right_col" role="main" style={{ minHeight: "113vh" }}>
       <div className="mb-5">
         <div className="page-title">
           <div className="title_left">
@@ -191,9 +191,8 @@ function Main() {
                         {[...Array(totalPages).keys()].map((page) => (
                           <li
                             key={page}
-                            className={`page-item ${
-                              currentPage === page + 1 ? "active" : ""
-                            }`}
+                            className={`page-item ${currentPage === page + 1 ? "active" : ""
+                              }`}
                             onClick={() => handlePageChange(page + 1)}
                           >
                             <button className="page-link">{page + 1}</button>

@@ -115,7 +115,8 @@ function Main() {
               >
                 <img
                   src={`http://localhost:8000/images/profilePic/${userData.profilePic}`}
-                  alt=""
+                  alt="no-image"
+                  style={{objectFit: "cover",objectPosition: "center"}}
                 />
                 Admin
               </Link>

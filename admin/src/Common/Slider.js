@@ -49,7 +49,7 @@ function Main() {
 
   useEffect(() => {
     fetchData();
-  }, []);
+  }, [fetchData]);
 
   return (
     <>
@@ -68,10 +68,10 @@ function Main() {
               <Link to={"/profile"}>
                 <img
                   src={`http://localhost:8000/images/profilePic/${userData.profilePic}`}
-                  alt="..."
-                  width="60"
-                  height={"60"}
-                  className="img-circle profile_img"
+                  alt='Profile'
+                  height={80}
+                  width={80}
+                  className="img-circle object-fit-cover profile_img"
                 />
               </Link>
             </div>
@@ -95,17 +95,15 @@ function Main() {
                   <Link to={""} onClick={() => toggleSubmenu("home")}>
                     <i className="fa fa-home"></i> Home
                     <span
-                      className={`fa ${
-                        openMenu === "home"
+                      className={`fa ${openMenu === "home"
                           ? "fa-chevron-up"
                           : "fa-chevron-down"
-                      }`}
+                        }`}
                     ></span>
                   </Link>
                   <ul
-                    className={`nav child_menu ${
-                      openMenu === "home" ? "d-block" : "d-none"
-                    }`}
+                    className={`nav child_menu ${openMenu === "home" ? "d-block" : "d-none"
+                      }`}
                   >
                     <li>
                       <Link to="/">Dashboard</Link>
@@ -117,17 +115,15 @@ function Main() {
                   <Link to={""} onClick={() => toggleSubmenu("manage")}>
                     <i className="fa fa-edit"></i> Manage
                     <span
-                      className={`fa ${
-                        openMenu === "manage"
+                      className={`fa ${openMenu === "manage"
                           ? "fa-chevron-up"
                           : "fa-chevron-down"
-                      }`}
+                        }`}
                     ></span>
                   </Link>
                   <ul
-                    className={`nav child_menu ${
-                      openMenu === "manage" ? "d-block" : "d-none"
-                    }`}
+                    className={`nav child_menu ${openMenu === "manage" ? "d-block" : "d-none"
+                      }`}
                   >
                     <li>
                       <Link to="/manage_users">Manage Users</Link>
@@ -159,17 +155,15 @@ function Main() {
                   <Link href="#" onClick={() => toggleSubmenu("payment")}>
                     <i className="fa fa-money"></i>Payments
                     <span
-                      className={`fa ${
-                        openMenu === "payment"
+                      className={`fa ${openMenu === "payment"
                           ? "fa-chevron-up"
                           : "fa-chevron-down"
-                      }`}
+                        }`}
                     ></span>
                   </Link>
                   <ul
-                    className={`nav child_menu ${
-                      openMenu === "payment" ? "d-block" : "d-none"
-                    }`}
+                    className={`nav child_menu ${openMenu === "payment" ? "d-block" : "d-none"
+                      }`}
                   >
                     <li>
                       <Link to={"/manage_payments"}>Manage Payments</Link>

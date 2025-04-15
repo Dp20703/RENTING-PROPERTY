@@ -626,7 +626,7 @@
             margin-top:10px;
             display:block}
         .profile_pic{
-            width:35%;
+            width:50%;
             float:left}
         .img-circle.profile_img{
             width:70%;
@@ -639,7 +639,7 @@
             padding:4px}
         .profile_info{
             padding:25px 10px 10px;
-            width:65%;
+            width:50%;
             float:left}
         .profile_info span{
             font-size:13px;

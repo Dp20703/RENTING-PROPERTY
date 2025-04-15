@@ -3,6 +3,8 @@ import Navigation from "../Common/Navigation";
 import Slider from "../Common/Slider";
 import Footer from "../Common/Footer";
 import checkSession from "../auth/authService";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 const Profile = () => {
   return (
@@ -36,7 +38,6 @@ function Main() {
           firstName: session.sessionData.first_name,
           lastName: session.sessionData.last_name,
           email: session.sessionData.email,
-          // bio: "I am a Software Engineer",
           profilePic:
             session.sessionData.profilePic || "/assets/images/nodp.webp",
         });
@@ -49,53 +50,40 @@ function Main() {
     // eslint-disable-next-line
   }, [isEditing]);
 
+  // Temporary state for selected Profile picture file
   const [selectedFile, setSelectedFile] = useState(null);
 
+  // Toggle edit mode
   const handleEditToggle = () => {
     setIsEditing(!isEditing);
     setProfile({ ...profile });
   };
 
-  const handleChange = (e) => {
-    setProfile({ ...profile, [e.target.name]: e.target.value });
-  };
-
-  const handleSave = () => {
-    setProfile(profile);
-    setIsEditing(false);
-  };
-
+  // Handle image change:
   const handleImageChange = async (e) => {
     const file = e.target.files[0];
     if (file) {
+      const imageUrl = URL.createObjectURL(file);
+      setProfile({ ...profile, profilePic: file });
+      setSelectedFile(imageUrl);
+    };
+  }
+
+  // Handle form submission for saving profile:
+  const handleSaveProfile = async (e) => {
+    e.preventDefault();
+    try {
       const formData = new FormData();
-      formData.append("profilePic", file);
-
-      try {
-        const response = await fetch(
-          "http://localhost:8000/updateProfileAdmin",
-          {
-            method: "POST",
-            credentials: "include",
-            body: formData,
-          }
-        );
-        window.location.reload();
-        const data = await response.json();
-
-        if (response.ok) {
-          setProfile({ ...profile, profilePic: URL.createObjectURL(file) });
-          setSelectedFile(URL.createObjectURL(file));
-          alert("Profile picture updated!");
-        } else {
-          alert(data.message || "Failed to update profile picture.");
-        }
-      } catch (error) {
-        console.error("Error updating profile picture:", error);
-        alert("Error updating profile picture");
-      }
+      formData.append("profilePic", profile.profilePic);
+      await axios.post("http://localhost:8000/updateProfileAdmin", formData)
+      setIsEditing(false);
+      toast.success("Profile Updated Successfully");
+    } catch (error) {
+      console.error("Error updating profile picture:", error);
+      toast.error("Failed to update profile picture.");
     }
-  };
+  }
+
 
   return (
     <div className="right_col" role="main" style={{ minHeight: "100vh" }}>
@@ -116,7 +104,11 @@ function Main() {
                   <div className="profile_img">
                     <img
                       className="img-responsive avatar-view rounded-circle"
-                      src={`http://localhost:8000/images/profilePic/${profile.profilePic}`}
+                      src={
+                        selectedFile ||
+                        `http://localhost:8000/images/profilePic/${profile.profilePic}` ||
+                        "/assets/images/nodp.webp"
+                      }
                       alt="profile pic"
                       style={{
                         width: "150px",
@@ -124,31 +116,54 @@ function Main() {
                         objectFit: "cover",
                       }}
                     />
-                    {isEditing && (
+                  </div>
+                  {isEditing && (
+                    <label
+                      className="position-absolute translate-middle-x  p-1 m-1 rounded-circle"
+                      style={{ cursor: "pointer", bottom: "35%", right: "25%" }}
+                    >
                       <input
                         type="file"
                         accept="image/*"
                         onChange={handleImageChange}
-                        className="form-control mt-2"
+                        className="form-control mt-2 d-none"
                       />
-                    )}
-                  </div>
-                  <>
-                    <h3>{profile.firstName}</h3>
-                    <p>{profile.email}</p>
-                    <ul className="list-unstyled user_data">
-                      <li>
-                        <i className="fa fa-briefcase user-profile-icon" />{" "}
-                        {profile.bio}
-                      </li>
-                    </ul>
-                    <button
-                      className="btn btn-success"
-                      onClick={handleEditToggle}
-                    >
-                      <i className="fa fa-edit m-right-xs" /> Edit Profile
-                    </button>
-                  </>
+                      <i className="fa fa-edit" />
+                    </label>
+                  )}
+                  {isEditing ? (
+                    <form>
+                      <div className="d-flex justify-content-center align-content-center mt-5">
+                        <button type="submit" className="btn btn-success mr-5 " onClick={handleSaveProfile}>
+                          <i className="fa fa-save m-right-xs mr-2" />
+                          Save
+                        </button>
+                        <button
+                          type="button"
+                          className="btn btn-secondary "
+                          onClick={() => setIsEditing(false)}
+                        >
+                          Cancel
+                        </button>
+                      </div>
+                    </form>
+                  ) : (
+                    <>
+                      <h3>{profile.firstName}</h3>
+                      <p>{profile.email}</p>
+                      {/* <ul className="list-unstyled user_data">
+                        <li>
+                          <i className="fa fa-info user-profile-icon" />{" "}
+                          {profile.bio}
+                        </li>
+                      </ul> */}
+                      <button
+                        className="btn btn-success"
+                        onClick={handleEditToggle}
+                      >
+                        <i className="fa fa-edit m-right-xs" /> Edit Profile
+                      </button>
+                    </>)}
                 </div>
               </div>
             </div>

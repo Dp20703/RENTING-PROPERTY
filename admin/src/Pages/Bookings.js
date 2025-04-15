@@ -125,7 +125,7 @@ function Main() {
   };
 
   return (
-    <div className="right_col" role="main" style={{ minHeight: "100vh" }}>
+    <div className="right_col" role="main" style={{ minHeight: "110vh" }}>
       <div className="mb-5">
         <div className="page-title">
           <div className="title_left">
@@ -140,15 +140,15 @@ function Main() {
             <div className="x_panel">
               <div className="x_title d-flex justify-content-between align-items-center">
                 <h2>Bookings List</h2>
-                {bookings.length > 0 && (
-                  <button
-                    className="btn btn-success btn-sm"
-                    onClick={downloadPDF}
-                  >
-                    <i className="fa fa-download mr-1"></i> Download PDF
-                  </button>
-                )}
-                <div className="clearfix" />
+                  {bookings.length > 0 && (
+                    <button
+                      className="btn btn-success btn-sm"
+                      onClick={downloadPDF}
+                    >
+                      <i className="fa fa-download mr-1"></i> Download PDF
+                    </button>
+                  )}
+                {/* <div className="clearfix" /> */}
               </div>
               <div className="x_content">
                 {bookings.length === 0 ? (
@@ -196,15 +196,14 @@ function Main() {
                               </td>
                               <td>
                                 <span
-                                  className={`p-1 badge ${
-                                    booking.status === "pending"
-                                      ? "bg-warning"
-                                      : booking.status === "Success"
+                                  className={`p-1 badge ${booking.status === "pending"
+                                    ? "bg-warning"
+                                    : booking.status === "Success"
                                       ? "bg-success text-white"
                                       : booking.status === "Booked"
-                                      ? "bg-success text-white"
-                                      : "bg-danger text-white"
-                                  }`}
+                                        ? "bg-success text-white"
+                                        : "bg-danger text-white"
+                                    }`}
                                 >
                                   {booking.status}
                                 </span>
@@ -232,9 +231,8 @@ function Main() {
                         {[...Array(totalPages).keys()].map((page) => (
                           <li
                             key={page}
-                            className={`page-item ${
-                              currentPage === page + 1 ? "active" : ""
-                            }`}
+                            className={`page-item ${currentPage === page + 1 ? "active" : ""
+                              }`}
                             onClick={() => handlePageChange(page + 1)}
                           >
                             <button className="page-link">{page + 1}</button>
@@ -252,8 +250,8 @@ function Main() {
 
       {/* View booking Modal */}
       {selectedUser && (
-        <div className="modal-overlay" style={{ marginBottom: "70px" }}>
-          <div className="modal-content px-5 py-5">
+        <div className="modal-overlay" style={{ marginBottom: "70px", minHeight: '65vh' }}>
+          <div className="modal-content px-5 py-3">
             <h3 className="pb-2">Booking Details</h3>
             <p>
               <strong>ID:</strong> {selectedUser._id}

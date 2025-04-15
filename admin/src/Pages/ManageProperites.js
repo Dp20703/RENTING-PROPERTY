@@ -181,11 +181,11 @@ function Main() {
                 <h2 className="mb-0">Properties List</h2>
                 {dataItems.length > 0 && (
                   <button
-                    className="btn btn-success btn-sm ml-3"
+                    className="btn btn-success btn-sm ml-3 mt-2"
                     onClick={downloadPDF}
                     style={{ height: "32px" }}
                   >
-                    <i className="fa fa-download mr-1"></i> PDF
+                    <i className="fa fa-download mr-1"></i>Download PDF
                   </button>
                 )}
               </div>

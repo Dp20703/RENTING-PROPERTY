@@ -221,7 +221,7 @@ function Main() {
                   <div className="d-flex justify-content-between align-items-center p-5">
                     <span>
                       Showing {indexOfFirstRecord + 1} to{" "}
-                      {Math.min(indexOfLastRecord, currentRecords.length)} of{" "}
+                      {Math.min(indexOfLastRecord, payments.length)} of{" "}
                       {payments.length} entries
                     </span>
                     <ul className="pagination mb-0">
@@ -248,7 +248,7 @@ function Main() {
         {selectedPayment && (
           <div
             className="modal-overlay"
-            style={{ marginBottom: "70px", minHeight: "50vh" }}
+            style={{ marginBottom: "70px", minHeight: "55vh" }}
           >
             <div className="modal-content px-5 py-3">
               <h3 className="pb-2">Payment Details</h3>
