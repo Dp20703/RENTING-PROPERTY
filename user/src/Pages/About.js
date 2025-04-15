@@ -28,7 +28,7 @@ const AboutSection = () => {
           <div className="row">
             <div className="col-lg-6">
               <img
-                src="assets/images/g15.jpg"
+                src="assets/images/g10.jpg"
                 className="img-fluid"
                 alt="Rental Property"
                 loading="lazy"
@@ -163,16 +163,19 @@ function ContactForm() {
     return Object.keys(newErrors).length === 0;
   };
 
+  // Handle Complaint change
   const handleChange = (e) => {
     const { name, value } = e.target;
     setData({ ...data, [name]: value });
   };
 
+  // Handle Feedback Change
   const handleFeedbackChange = (e) => {
     const { name, value } = e.target;
     setFeedback({ ...feedback, [name]: value });
   };
 
+  // Handle Complaint Submit
   const handleSubmitComplaint = async (e) => {
     e.preventDefault();
     if (!validateComplaintForm()) return;
@@ -193,6 +196,7 @@ function ContactForm() {
     }
   };
 
+  //Handle Feedback Submit
   const handleSubmitFeedback = async (e) => {
     e.preventDefault();
     if (!validateFeedbackForm()) return;
@@ -224,44 +228,53 @@ function ContactForm() {
               <h4>Make Complaint</h4>
               <form onSubmit={handleSubmitComplaint} noValidate>
                 <div className="twice-two">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    className="form-control"
-                    value={data.name}
-                    onChange={handleChange}
-                    required
-                  />
-                  {errors.name && (
-                    <small className="text-danger">{errors.name}</small>
-                  )}
-                  <input
-                    type="email"
-                    name="email"
-                    className="form-control mb-2"
-                    value={data.email}
-                    onChange={handleChange}
-                    placeholder="Email"
-                    required
-                  />
-                  {errors.email && (
-                    <small className="text-danger">{errors.email}</small>
-                  )}
+                  {/* Name Input */}
+                  <div className="">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      className="form-control mb-2"
+                      value={data.name}
+                      onChange={handleChange}
+                      required
+                    />
+                    {errors.name && (
+                      <small className="text-danger ml-2">{errors.name}</small>
+                    )}
+                  </div>
+                  {/* Email Input */}
+                  <div className="">
+                    <input
+                      type="email"
+                      name="email"
+                      className="form-control mb-2"
+                      value={data.email}
+                      onChange={handleChange}
+                      placeholder="Email"
+                      required
+                    />
+                    {errors.email && (
+                      <small className="text-danger ml-2">{errors.email}</small>
+                    )}
+                  </div>
                 </div>
-
-                <textarea
-                  name="complaint"
-                  placeholder="Complaint"
-                  value={data.complaint}
-                  onChange={handleChange}
-                  className="form-control"
-                  rows={6}
-                  required
-                />
-                {errors.complaint && (
-                  <small className="text-danger">{errors.complaint}</small>
-                )}
+                {/* Complaint input */}
+                <div className=" mb-2">
+                  <textarea
+                    name="complaint"
+                    placeholder="Complaint Message"
+                    value={data.complaint}
+                    onChange={handleChange}
+                    className="form-control"
+                    rows={6}
+                    required
+                  />
+                  {errors.complaint && (
+                    <small className="text-danger mt-1 ml-2">{errors.complaint}</small>
+                  )}
+                  <div className="mb-4 d-none">hii</div>
+                </div>
                 <button type="submit">Register Complaint</button>
               </form>
             </div>
@@ -271,34 +284,41 @@ function ContactForm() {
               <h4>Give Feedback</h4>
               <form onSubmit={handleSubmitFeedback} noValidate>
                 <div className="twice-two">
-                  <input
-                    type="text"
-                    name="name"
-                    placeholder="Name"
-                    className="form-control"
-                    value={feedback.name}
-                    onChange={handleFeedbackChange}
-                    required
-                  />
-                  {feedbackErrors.name && (
-                    <small className="text-danger">{feedbackErrors.name}</small>
-                  )}
-                  <input
-                    type="email"
-                    name="email"
-                    className="form-control"
-                    value={feedback.email}
-                    onChange={handleFeedbackChange}
-                    placeholder="Email"
-                    required
-                  />
-                  {feedbackErrors.email && (
-                    <small className="text-danger">
-                      {feedbackErrors.email}
-                    </small>
-                  )}
+                  {/* Name Input */}
+                  <div className="">
+                    <input
+                      type="text"
+                      name="name"
+                      placeholder="Name"
+                      className="form-control"
+                      value={feedback.name}
+                      onChange={handleFeedbackChange}
+                      required
+                    />
+                    {feedbackErrors.name && (
+                      <small className="text-danger mx-2 mt-1">{feedbackErrors.name}</small>
+                    )}
+                  </div>
+                  {/* Email Input */}
+                  <div className="">
+                    <input
+                      type="email"
+                      name="email"
+                      className="form-control"
+                      value={feedback.email}
+                      onChange={handleFeedbackChange}
+                      placeholder="Email"
+                      required
+                    />
+                    {feedbackErrors.email && (
+                      <small className="text-danger mx-2 mt-1">
+                        {feedbackErrors.email}
+                      </small>
+                    )}
+                  </div>
                 </div>
-                <div className="mb-2">
+                {/* Rating Input */}
+                <div className="mb-2 d-flex justify-content-around align-content-center">
                   <Rating
                     name="rating"
                     value={Number(feedback.rating)}
@@ -309,24 +329,27 @@ function ContactForm() {
                     precision={1}
                   />
                   {feedbackErrors.rating && (
-                    <small className="text-danger">
+                    <small className="text-danger mr-5">
                       {feedbackErrors.rating}
                     </small>
                   )}
                 </div>
-                <textarea
-                  name="feedback"
-                  placeholder="Feedback Message"
-                  value={feedback.feedback}
-                  onChange={handleFeedbackChange}
-                  className="form-control"
-                  required
-                />
-                {feedbackErrors.feedback && (
-                  <small className="text-danger">
-                    {feedbackErrors.feedback}
-                  </small>
-                )}
+                {/* Feedback Message Input */}
+                <div>
+                  <textarea
+                    name="feedback"
+                    placeholder="Feedback Message"
+                    value={feedback.feedback}
+                    onChange={handleFeedbackChange}
+                    className="form-control"
+                    required
+                  />
+                  {feedbackErrors.feedback && (
+                    <small className="text-danger ml-2 mt-2">
+                      {feedbackErrors.feedback}
+                    </small>
+                  )}
+                </div>
                 <button type="submit">Submit Feedback</button>
               </form>
             </div>
