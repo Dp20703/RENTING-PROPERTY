@@ -36,6 +36,45 @@ function Main() {
     setUser({ ...user, [e.target.name]: e.target.value });
   };
 
+  // Handle Validation
+  const [errors, setErrors] = useState({}); // Store validation errors
+
+  const validateForm = () => {
+    let newErrors = {};
+
+    // First Name Validation (Only Alphabets)
+    if (!/^[A-Za-z]+$/.test(user.firstName)) {
+      newErrors.firstName = "First name should contain only letters";
+    }
+
+    // Last Name Validation (Only Alphabets)
+    if (!/^[A-Za-z]+$/.test(user.lastName)) {
+      newErrors.lastName = "Last name should contain only letters";
+    }
+
+    // Email Validation (Basic Format Check)
+    if (!/^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/.test(user.email)) {
+      newErrors.email = "Enter a valid email address";
+    }
+
+    // Phone Number Validation (Exactly 10 Digits)
+    if (!/^\d{10}$/.test(user.phoneNo)) {
+      newErrors.phoneNo = "Phone number must be 10 digits";
+    }
+
+    // Password Validation (Minimum 6 Characters)
+    if (user.password.length < 6) {
+      newErrors.password = "Password must be at least 6 characters";
+    }
+
+    // Bio Validation (Optional)
+    if (user.bio.length < 20) {
+      newErrors.bio = "Bio must be at least 20 characters"
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0; // Returns true if no errors
+  };
+
   // Handle profile picture change
   const handleProfilePicChange = (e) => {
     const file = e.target.files[0];
@@ -49,6 +88,11 @@ function Main() {
   // Save changes
   const handleSave = async (e) => {
     e.preventDefault();
+    if (!validateForm()) {
+      toast.error("Please fix the errors before submitting");
+      return;
+    }
+
 
     try {
       const formData = new FormData();
@@ -62,12 +106,12 @@ function Main() {
       user.profilePic !== "/assets/images/nodp.webp"
         ? await axios.post("http://localhost:8000/update_profile", formData)
         : await axios.post("http://localhost:8000/update_profile", {
-            firstName: user.firstName,
-            lastName: user.lastName,
-            email: user.email,
-            phoneNo: user.phoneNo,
-            bio: user.bio,
-          });
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+          phoneNo: user.phoneNo,
+          bio: user.bio,
+        });
 
       setIsEditing(false);
       toast.success("Profile Updated Successfully");
@@ -162,34 +206,58 @@ function Main() {
         {isEditing ? (
           // Editable form
           <div className="mt-3">
-            <div className="d-flex justify-content-center align-content-center gap-2">
-              <input
-                type="text"
-                name="name"
-                value={user.firstName || "N/A"}
-                onChange={handleChange}
-                className="form-control mb-3"
-                placeholder="Enter name"
-                required
-              />
-              <input
-                type="text"
-                name="lastName"
-                value={user.lastName || "N/A"}
-                onChange={handleChange}
-                className="form-control mb-3"
-                required
-              />
+
+            {/* firstName & lastName */}
+            <div className="d-flex justify-content-center align-content-center gap-2 mb-3">
+              <div className="w-50">
+                <input
+                  type="text"
+                  name="firstName"
+                  value={user.firstName || "N/A"}
+                  onChange={handleChange}
+                  className="form-control mb-1"
+                  placeholder="Enter name"
+                  required
+                />
+                {errors.firstName && (
+                  <small className="text-danger mr-5">
+                    {errors.firstName}
+                  </small>
+                )}
+              </div>
+              <div className="w-50">
+                <input
+                  type="text"
+                  name="lastName"
+                  value={user.lastName || "N/A"}
+                  onChange={handleChange}
+                  className="form-control mb-1"
+                  required
+                />
+                {
+                  errors.lastName && (
+                    <small className="text-danger mr-5">{errors.lastName}</small>
+                  )
+                }
+              </div>
             </div>
-            <input
-              type="email"
-              name="email"
-              value={user.email || "N/A"}
-              onChange={handleChange}
-              className="form-control mb-3"
-              placeholder="Enter email"
-              required
-            />
+            {/* Email Input */}
+            <div className="mb-3 input-group">
+              <input
+                type="email"
+                name="email"
+                value={user.email || "N/A"}
+                onChange={handleChange}
+                className="form-control "
+                placeholder="Enter email"
+                required
+              />
+              {errors.email && (
+                <small className="text-danger mt-2 mx-2">{errors.email}</small>
+              )}
+            </div>
+
+            {/* Password Input */}
             <div className="input-group mb-3">
               <input
                 type={passwordVisible ? "text" : "password"}
@@ -206,32 +274,48 @@ function Main() {
                 onClick={togglePasswordVisibility}
               >
                 <i
-                  className={`fa ${
-                    passwordVisible ? "fa-eye-slash" : "fa-eye"
-                  }`}
+                  className={`fa ${passwordVisible ? "fa-eye-slash" : "fa-eye"
+                    }`}
                 ></i>
               </span>
-              {/* <Link id="link" to="/forgot_password">
-                                Forgot your password?
-                            </Link> */}
+              {errors.password && (
+                <small className="text-danger mt-2 mx-2">{errors.password}</small>
+              )}
             </div>
-            <input
-              type="text"
-              name="phoneNo"
-              value={user.phoneNo}
-              onChange={handleChange}
-              className="form-control mb-3"
-              required
-            />
-            <textarea
-              name="bio"
-              value={user.bio}
-              onChange={handleChange}
-              className="form-control mb-3"
-              placeholder="Enter bio"
-              rows="3"
-              required
-            ></textarea>
+
+            {/* Phone Number Input */}
+            <div className="mb-3 input-group">
+              <input
+                input type="tel"
+                placeholder="Enter your phone number"
+                pattern="^[0-9]+$"
+                name="phoneNo"
+                value={user.phoneNo}
+                onChange={handleChange}
+                className="form-control"
+                required
+              />
+              {errors.phoneNo && (
+                <small className="text-danger mx-2 mt-2">{errors.phoneNo}</small>
+              )}
+            </div>
+
+            {/* Bio Input */}
+            <div className="input-group mb-3">
+              <textarea
+                name="bio"
+                value={user.bio}
+                onChange={handleChange}
+                className="form-control mb-3"
+                placeholder="Enter bio"
+                rows="2"
+              ></textarea>
+
+              {errors.bio && (
+                <small className="text-danger mt-2 mx-2">{errors.bio}</small>
+              )}
+            </div>
+
             <button
               className="btn btn-success me-2 shadow-sm w-40"
               onClick={handleSave}
