@@ -69,13 +69,13 @@ function Main() {
                 <img
                   src={`http://localhost:8000/images/profilePic/${userData.profilePic}`}
                   alt='Profile'
-                  height={80}
-                  width={80}
+                  height={90}
+                  style={{width:"88px"}}
                   className="img-circle object-fit-cover profile_img"
                 />
               </Link>
             </div>
-            <div className="profile_info">
+            <div className="profile_info mt-3">
               <span>Welcome,</span>
               <h2>Admin</h2>
             </div>

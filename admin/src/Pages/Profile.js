@@ -150,7 +150,9 @@ function Main() {
                   ) : (
                     <>
                       <h3>{profile.firstName}</h3>
-                      <p>{profile.email}</p>
+                      <p>
+                      <i className="fa fa-envelope" />{" "}
+                      {profile.email}</p>
                       {/* <ul className="list-unstyled user_data">
                         <li>
                           <i className="fa fa-info user-profile-icon" />{" "}

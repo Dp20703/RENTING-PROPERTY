@@ -69,7 +69,7 @@ const Footer = () => {
                                 <li>
                                     <i className="fa fa-envelope text-warning"></i>{" "}
                                     <Link id="link" to="mailto:darshanrp20703@gmail.com" className="text-white">
-                                        info@rentingproperties.com
+                                        rentingproperties@gmail.com
                                     </Link>
                                 </li>
                                 <li className="mt-2">

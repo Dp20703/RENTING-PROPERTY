@@ -39,7 +39,7 @@ const Header = () => {
         <div className="container">
           <Link className="navbar-brand text-light fw-bold" to="/">
             <span style={{ color: "#f8b400" }}>Renting</span> Properties
-            {role == "owner" ? (
+            {role === "owner" ? (
               <span style={{ fontSize: "15px" }}> owner</span>
             ) : (
               ""

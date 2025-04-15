@@ -45,7 +45,7 @@ function Main() {
         "Owner",
         "Amount",
         "Method",
-        "Date",
+        "Date&Time",
         "Status",
       ],
     ];
@@ -87,7 +87,7 @@ function Main() {
         4: { cellWidth: 25 }, // Owner
         5: { cellWidth: 15 }, // Amount
         6: { cellWidth: 15 }, // Method
-        7: { cellWidth: 25 }, // Date
+        7: { cellWidth: 25 }, // Date&Time
         8: { cellWidth: 15 }, // Status
       },
       margin: { left: 5 }, // Smaller left margin
@@ -161,7 +161,7 @@ function Main() {
                         <th>Owner</th>
                         <th>Amount</th>
                         <th>Method</th>
-                        <th>Date</th>
+                        <th>Date&Time</th>
                         <th>Status</th>
                         <th>Actions</th>
                       </tr>
@@ -179,13 +179,13 @@ function Main() {
                             <td>{index + 1}</td>
                             <td>{payment.transactionId}</td>
                             <td>
-                              {payment.userName} ({payment.user_Id})
+                              {payment.userName}<br />({payment.user_Id})
                             </td>
                             <td>
-                              {payment.propertyName} ({payment.property_Id})
+                              {payment.propertyName}<br />({payment.property_Id})
                             </td>
                             <td>
-                              {payment.ownerName} ({payment.owner_Id})
+                              {payment.ownerName}<br />({payment.owner_Id})
                             </td>
                             <td>₹{payment.amount}</td>
                             <td>{payment.paymentMethod}</td>
@@ -194,13 +194,12 @@ function Main() {
                             </td>
                             <td>
                               <span
-                                className={`p-1 badge ${
-                                  payment.status === "pending"
+                                className={`p-1 badge ${payment.status === "pending"
                                     ? "bg-warning"
                                     : payment.status === "Success"
-                                    ? "bg-success text-white"
-                                    : "bg-danger text-white"
-                                }`}
+                                      ? "bg-success text-white"
+                                      : "bg-danger text-white"
+                                  }`}
                               >
                                 {payment.status}
                               </span>
@@ -228,9 +227,8 @@ function Main() {
                       {[...Array(totalPages).keys()].map((page) => (
                         <li
                           key={page}
-                          className={`page-item ${
-                            currentPage === page + 1 ? "active" : ""
-                          }`}
+                          className={`page-item ${currentPage === page + 1 ? "active" : ""
+                            }`}
                           onClick={() => handlePageChange(page + 1)}
                         >
                           <button className="page-link">{page + 1}</button>
