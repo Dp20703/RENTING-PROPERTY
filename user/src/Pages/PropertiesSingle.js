@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../Common/Header";
 import Banner from "../Common/Banner";
 import Footer from "../Common/Footer";
-import { Link, useLocation } from "react-router-dom";
+import { Link, Links, useLocation } from "react-router-dom";
 import checkSession from "../auth/authService";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -52,19 +52,19 @@ const Main = () => {
   return (
     <section
       className="w3l-content-with-photo-11 m-auto"
-      style={{ width: "75%" }}
+      style={{ width: "80%" }}
     >
       <div className="contentwithphoto-11 py-5">
         <div className="container py-md-3">
           <div className="row">
             <div className="col-md-12 text-center">
               <div className="galleryContainer">
-                <div className="gallery d-flex justify-content-center flex-wrap">
+                <div className=" " id={"property-grid"}>
                   {propertyDetailss?.images.map((img, index) => (
-                    <div key={index} className="large-image p-2">
-                      <a
-                        href={`http://localhost:8000/images/propertyImg/${img}`}
-                        target="_blank"
+                    <div key={index} id={"property-card"} className="large-image p-2">
+                      <Link
+                        to={`http://localhost:8000/images/propertyImg/${img}`}
+                        target="_top"
                         rel="noopener noreferrer"
                       >
                         <img
@@ -77,7 +77,7 @@ const Main = () => {
                           }}
                           alt={`Property ${index + 1}`}
                         />
-                      </a>
+                      </Link>
                     </div>
                   ))}
                 </div>
@@ -107,7 +107,7 @@ const Main = () => {
                 <li>
                   <span className="title-text">Price:</span>
                   <span className="feature-count">
-                    {propertyDetailss?.price}
+                    ₹{propertyDetailss?.price}
                   </span>
                 </li>
                 <li>

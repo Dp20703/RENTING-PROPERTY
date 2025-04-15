@@ -16,6 +16,7 @@ const Faq = () => {
 };
 
 function Main() {
+  // Sample FAQ data
   const faqData = [
     {
       question: "How do I find a rental property?",
@@ -84,6 +85,7 @@ function Main() {
   );
 }
 
+// FAQ Item Component
 const FaqItem = ({ question, answer }) => {
   return (
     <details className="mb-3 border rounded p-3">

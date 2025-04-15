@@ -79,3 +79,26 @@ code {
 .scrolling-container:hover .scrolling-content {
   animation-play-state: paused;
 }
+
+
+/* Property single css for Iamges */
+
+#property-grid {
+  display: grid;
+  margin:auto;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 1.5rem;
+  padding: 2rem;
+}
+
+#property-card {
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  overflow: hidden;
+  transition: transform 0.2s ease;
+}
+
+#property-card:hover {
+  transform: scale(1.02);
+}
