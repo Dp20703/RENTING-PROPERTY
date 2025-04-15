@@ -25,7 +25,9 @@ const Main = () => {
       const response = await axios.get(
         "http://localhost:8000/fetch_all_property"
       );
-      setPropertiesData(response.data.data);
+      const responseData = response.data.data || [];
+      const revesedData = responseData.reverse();
+      setPropertiesData(revesedData);
     } catch (error) {
       console.error(error);
     }
@@ -54,7 +56,7 @@ const Main = () => {
           <div className="row">
             {propertiesData.length > 0 ? (
               propertiesData.map((property, index) => (
-                <div className="grids3-info col-lg-4 col-md-6 mt-5"  key={index}>
+                <div className="grids3-info col-lg-4 col-md-6 mt-5" key={index}>
                   <Link id="link" to="/properties_single" state={property}>
                     <img
                       src={`http://localhost:8000/images/propertyImg/${property?.images[0]}`}

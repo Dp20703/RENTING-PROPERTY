@@ -74,13 +74,10 @@ function Main() {
 
   return (
     <div className="container my-5">
-      {/* <div className="text-center">
+      <div className="text-center">
         <h1>Book a Property</h1>
-        <p>Find and book your ideal property today.</p>
-        <button className="btn btn-primary btn-lg" onClick={scrollToForm}>
-          Book Now
-        </button>
-      </div> */}
+        <p>Book your ideal property today.</p>
+      </div>
 
       {/* Booking Form */}
       <div className="booking-form mt-5 p-4 border rounded shadow">

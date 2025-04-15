@@ -6,10 +6,12 @@ import { toast } from "react-toastify";
 function ForgotPassword() {
   const navigate = useNavigate();
   const [email, setEmail] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
+    setLoading(true);
     try {
       await axios.post("http://localhost:8000/sendOtp", { email });
       toast.success("Email Sent Successfully!!", {
@@ -18,6 +20,7 @@ function ForgotPassword() {
     } catch (error) {
       toast.error(error.response?.data?.message || "something went wrong!");
     }
+    setLoading(false);
   };
 
   return (
@@ -43,7 +46,12 @@ function ForgotPassword() {
                     value={email}
                   />
 
-                  <button type="submit">Send OTP</button>
+                  <button type="submit"
+                  >
+                    {
+                      loading ? "Sending..." : " Send OTP"
+                    }
+                  </button>
                 </form>
               </div>
             </div>
