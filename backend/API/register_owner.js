@@ -35,6 +35,42 @@ async function register_owner(req, res) {
     // Insert into DB
     await collection.insertOne(newUser);
 
+    // SMTP transporter setup
+    const transporter = nodemailer.createTransport({
+      host: "smtp.gmail.com",
+      port: 587,
+      secure: false, // true for port 465, false for others
+      auth: {
+        user: "darshanrp20703@gmail.com",
+        pass: "nsfbggpjmzryszlj", // App password
+      },
+    });
+
+    // Email options for registered owner
+    const mailOptions = {
+      from: '"RentingProperties" <darshanrp20703@gmail.com>',
+      to: email,
+      subject: "Welcome to RentingProperties!",
+      text: `Dear ${firstName} ${lastName},
+
+Thank you for registering as a property owner on RentingProperties.
+
+You can now list your properties, manage tenant requests, and get better visibility through our platform.
+
+If you need help setting up your first property listing, our support team is here to assist you.
+
+Looking forward to a great partnership!
+
+Best regards,  
+Admin Team  
+RentingProperties`,
+    };
+
+    // Send email
+    await transporter.sendMail(mailOptions);
+    console.log("Owner registration email sent successfully");
+
+    // Send success response
     return res.status(201).json({ message: "Owner registered successfully" });
   } catch (error) {
     console.error("Registration Error:", error);
