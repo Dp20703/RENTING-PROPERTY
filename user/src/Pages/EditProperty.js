@@ -16,11 +16,13 @@ const EditProperty = () => {
 };
 
 function Main() {
+  // Use Data from Search Results:
   const location = useLocation();
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-
+  
+  // State for managing form data
   const [formData, setFormData] = useState({
     property_Id: location.state._id,
     title: location.state.title,
@@ -41,7 +43,6 @@ function Main() {
     identityType: location.state.identityType,
     identityId: "",
   });
-
   const amenitiesList = [
     "Air Conditioning",
     "Swimming Pool",
@@ -52,12 +53,14 @@ function Main() {
     "Garden",
     "Power Backup",
   ];
-
+  
+  // Function to validate form data
   const validateForm = () => {
     const newErrors = {};
     let isValid = true;
 
     // Text field validations
+    // Title validation
     if (!formData.title.trim()) {
       newErrors.title = "Property title is required";
       isValid = false;
@@ -66,6 +69,7 @@ function Main() {
       isValid = false;
     }
 
+    // Description validation
     if (!formData.description.trim()) {
       newErrors.description = "Description is required";
       isValid = false;
@@ -74,16 +78,19 @@ function Main() {
       isValid = false;
     }
 
+    // Location validation
     if (!formData.location.trim()) {
       newErrors.location = "City is required";
       isValid = false;
     }
 
+  // Address validation  
     if (!formData.address.trim()) {
       newErrors.address = "Address is required";
       isValid = false;
     }
 
+    // ZIP code validation
     if (!formData.zipCode.trim()) {
       newErrors.zipCode = "ZIP code is required";
       isValid = false;
@@ -92,11 +99,13 @@ function Main() {
       isValid = false;
     }
 
+    // Property type validation
     if (!formData.propertyType) {
       newErrors.propertyType = "Property type is required";
       isValid = false;
     }
 
+    // Size validation
     if (!formData.size) {
       newErrors.size = "Size is required";
       isValid = false;
@@ -108,6 +117,7 @@ function Main() {
       isValid = false;
     }
 
+    // Price validation
     if (!formData.price) {
       newErrors.price = "Price is required";
       isValid = false;
@@ -119,6 +129,7 @@ function Main() {
       isValid = false;
     }
 
+   // Bedrooms validation 
     if (!formData.bedrooms) {
       newErrors.bedrooms = "Bedrooms count is required";
       isValid = false;
@@ -127,6 +138,7 @@ function Main() {
       isValid = false;
     }
 
+    // Bathrooms validation
     if (!formData.bathrooms) {
       newErrors.bathrooms = "Bathrooms count is required";
       isValid = false;
@@ -138,7 +150,7 @@ function Main() {
     // File validations
     if (formData.images.length > 0) {
       if (formData.images.length > 10) {
-        newErrors.images = "Maximum 10 images allowed";
+        newErrors.images = "Maximum 5 images allowed";
         isValid = false;
       } else {
         // Check each image file type and size
@@ -155,11 +167,13 @@ function Main() {
       }
     }
 
+    // PropertyIdentity type validation
     if (!formData.propertyIdentityType) {
       newErrors.propertyIdentityType = "Property identity type is required";
       isValid = false;
     }
 
+    // Property proof validation
     if (formData.propertyProof) {
       const allowedTypes = [
         "application/pdf",
@@ -183,6 +197,7 @@ function Main() {
     return isValid;
   };
 
+  // Handle input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -193,6 +208,7 @@ function Main() {
     }
   };
 
+  // Handle file input changes
   const handleFileChange = (e) => {
     setFormData({ ...formData, images: Array.from(e.target.files) });
     if (errors.images) {
@@ -200,6 +216,7 @@ function Main() {
     }
   };
 
+  // Handle property proof file input changes
   const handlePropertyProofChange = (e) => {
     const file = e.target.files[0];
     setFormData({ ...formData, propertyProof: file });
@@ -208,6 +225,7 @@ function Main() {
     }
   };
 
+  // Handle Amenities changes
   const handleAmenitiesChange = (e) => {
     const { value, checked } = e.target;
     setFormData((prevData) => ({
@@ -218,6 +236,7 @@ function Main() {
     }));
   };
 
+  // Handle form submission
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -259,6 +278,7 @@ function Main() {
     if (formData.propertyProof) {
       submitData.append("propertyProof", formData.propertyProof);
     }
+    // Append single identity proof image
     if (formData.identityId) {
       submitData.append("identityId", formData.identityId);
     }
