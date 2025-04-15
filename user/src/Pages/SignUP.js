@@ -55,7 +55,7 @@ function Main() {
 
     // License ID Validation (Only Required for Owners)
     if (data.role === "owner" && !data.l_Id) {
-      newErrors.l_Id = "License ID is required for owners";
+      newErrors.l_Id = "Identify Proof is required for owner";
     }
 
     setErrors(newErrors);
@@ -202,7 +202,7 @@ function Main() {
                     required
                   />
                   {errors.password && (
-                    <small className="text-danger">{errors.password}</small>
+                    <small className="text-danger">{errors.password}<br/></small>
                   )}
 
                   {/* Role Selection */}
