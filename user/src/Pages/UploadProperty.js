@@ -493,7 +493,7 @@ function Main() {
           {errors.images && (
             <div className="invalid-feedback">{errors.images}</div>
           )}
-          <small className="text-muted">Maximum 10 images (5MB each)</small>
+          <small className="text-muted">Maximum 5 images</small>
         </div>
 
         {/* Property Identity Type */}

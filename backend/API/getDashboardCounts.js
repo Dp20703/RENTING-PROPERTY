@@ -19,6 +19,28 @@ async function getDashboardCounts(req, res) {
       .collection("Property")
       .countDocuments({ status: "Active" });
 
+    // Get total properties count for residential 
+    const respropertiesCount= await db
+      .collection("Property")
+      .countDocuments({ propertyType: "Residential", status: "Active" });
+
+    // Get total properties count for commercial
+    const compropertiesCount = await db
+      .collection("Property")
+      .countDocuments({ propertyType: "Commercial Property", status: "Active" });
+
+// Get total Squared feet for active properties
+    const totalSquareFeet = await db
+      .collection("Property")
+      .aggregate([
+        { $match: { status: "Active" } },
+        { $group: { _id: null, totalSquareFeet: { $sum: "$size" } } },
+      ])
+      .toArray();
+    const totalSquareFeetValue =
+      totalSquareFeet.length > 0 ? totalSquareFeet[0].totalSquareFeet : 0;
+
+
     // Get total bookings count
     const bookingsCount = await db.collection("Booking").countDocuments();
 
@@ -38,6 +60,9 @@ async function getDashboardCounts(req, res) {
         totalProperties: propertiesCount,
         totalBookings: bookingsCount,
         totalRevenue: totalRevenue,
+        totalPropertiesResidential: respropertiesCount,
+        totalPropertiesCommercial: compropertiesCount,
+        totalSquareFeet: totalSquareFeetValue,
       },
     });
   } catch (error) {

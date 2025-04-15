@@ -14617,30 +14617,32 @@ h4.sub-title {
 
 
 .w3l-main-slider .banner-top0 {
-  background: url(../images/bandra1.jpg) no-repeat center;
+  background: url(../images/chennai.jpg) no-repeat center;
   background-size: cover;
 } 
 
 .w3l-main-slider .banner-top1 {
-  background: url(../images/banner-2.jpg) no-repeat center;
+  background: url(../images/Banglore.jpg) no-repeat center;
   background-size: cover;
  }
 
 
 .w3l-main-slider .banner-top2 {
-  background: url(../images/banner-3.jpg) no-repeat center;
+  background: url(../images/delhi.jpg) no-repeat center;
   background-size: cover;
- }
+background-position:bottom; 
+}
 
 
 .w3l-main-slider .banner-top3 {
-  background: url(../images/banner-4.jpg) no-repeat center;
+  background: url(../images/mumbai.jpg) no-repeat center;
   background-size: cover;
- }
+  background-position:center; 
+   }
 
 
 .w3l-main-slider .banner-top4 {
-  background: url(../images/banner-1.jpg) no-repeat center;
+  background: url(../images/kolkata.jpg) no-repeat center;
   background-size: cover;
  }
 
@@ -18381,7 +18383,7 @@ h4.sub-title {
 
   .w3l-content-with-photo-11 .galleryContainer {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: space-between;
     align-content: center;
     position: relative;
@@ -21350,7 +21352,7 @@ small.text-3 {
     height: 40px;
     background: none;
     padding: 0 15px;
-    margin-bottom: 16px;
+    margin: 8px 0;
     border-radius: 0.25rem;
   
   }

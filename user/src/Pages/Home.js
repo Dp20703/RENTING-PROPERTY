@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css"; // Core Swiper styles
 import "swiper/css/navigation"; // Optional: Navigation buttons
@@ -7,7 +7,11 @@ import { Navigation, Pagination, Autoplay } from "swiper/modules";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
 import { Link } from "react-router-dom";
-import  { Main } from "./Properties";
+import { Main } from "./Properties";
+import CountUp from "react-countup";
+import { useInView } from "react-intersection-observer";
+import axios from "axios";
+
 
 const Home = () => {
   return (
@@ -24,11 +28,13 @@ const Home = () => {
   );
 };
 
+// Slider component
+// Displays a carousel of rental properties
 const Slider = () => {
   const propertySlides = [
     {
-      location: "Mumbai, India",
-      title: "Luxury Apartments in Bandra",
+      location: "Chennai, India",
+      title: "Beachside Villas in ECR",
       beds: 3,
       baths: 2,
       size: "1500",
@@ -48,9 +54,9 @@ const Slider = () => {
       size: "1200",
     },
     {
-      location: "Chennai, India",
-      title: "Beachside Villas in ECR",
-      beds: 5,
+      location: "Mumbai, India",
+      title: "Luxury Apartments in Bandra",
+      beds: 2,
       baths: 4,
       size: "2500",
     },
@@ -109,13 +115,6 @@ const Slider = () => {
                                 {slide.size}
                               </li>
                             </ul>
-                            {/* <Link
-                              id="link"
-                              className="btn btn-secondary btn-theme1"
-                              to="/properties"
-                            >
-                              View Property
-                            </Link> */}
                           </div>
                         </div>
                       </div>
@@ -131,10 +130,13 @@ const Slider = () => {
   );
 };
 
+
+// InfoBlock component
+// Displays the services offered by the renting Property
 const InfoBlock = () => {
   return (
     <>
-      <section className="w3l-index-block2 py-5">
+      <section className="w3l-index-block2 py-2">
         <div className="container py-md-3">
           <div className="heading text-center mx-auto">
             <h3 className="head">Our Services</h3>
@@ -146,7 +148,7 @@ const InfoBlock = () => {
               got you covered.
             </p>
           </div>
-          <div className="row bottom_grids mt-5 pt-3">
+          <div className="row bottom_grids mt-2 pt-3">
             <div className="col-lg-4 col-md-6">
               <div className="s-block p-4">
                 <span className="fa fa-home icon-siz" />
@@ -232,44 +234,92 @@ const InfoBlock = () => {
   );
 };
 
+// Specification component
+// Displays the statistics of the rental properties
 const Specification = () => {
+  const [data, setData] = useState({
+    totalUsers: 0,
+    totalOwners: 0,
+    totalProperties: 0,
+    totalBookings: 0,
+    totalRevenue: 0,
+    totalPropertiesResidential: 0,
+    totalPropertiesCommercial: 0,
+    totalSquareFeet: 0,
+  });
+
+  const [ref, inView] = useInView({
+    triggerOnce: true, // Count once when scrolled into view
+    threshold: 0.3,     // Trigger when 30% of element is visible
+  });
+
+  const getData = async () => {
+    try {
+      const response = await axios.get("http://localhost:8000/getDashboardCounts");
+      const responseData = response.data.data;
+      setData(responseData);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
   return (
-    <>
-      <section className="specifications">
-        <div className="container text-center">
+    <div>
+      <section className="specifications" ref={ref}>
+        <div className="container text-center py-5">
           <div className="scrolling-container">
             <div className="scrolling-content">
               <div className="spec-box">
-                <h3>445</h3>
+                <h3>
+                  {inView && <CountUp end={data.totalPropertiesResidential} duration={2} />}
+                </h3>
                 <p>Residential Properties to Rent</p>
               </div>
               <div className="spec-box">
-                <h3>350</h3>
+                <h3>
+                  {inView && <CountUp end={data.totalPropertiesCommercial} duration={2} />}
+                </h3>
                 <p>Commercial Properties for Rent</p>
               </div>
               <div className="spec-box">
-                <h3>530</h3>
+                <h3>
+                  {inView && <CountUp end={data.totalProperties} duration={2} />}
+                </h3>
                 <p>Properties Under Offer</p>
               </div>
               <div className="spec-box">
-                <h3>25K+</h3>
+                <h3>
+                  {inView && <CountUp end={Math.round(data.totalSquareFeet / 1000)} duration={2} />}k+
+                </h3>
                 <p>Square Feet Managed</p>
+              </div>
+              <div className="spec-box">
+                <h3>
+                  {inView && <CountUp end={data.totalUsers + data.totalOwners} duration={2} />}
+                </h3>
+                <p>Happy Clients</p>
               </div>
             </div>
           </div>
         </div>
       </section>
       {/* <hr className='opacity-25' /> */}
-    </>
+    </div>
   );
 };
 
+// PropertyInfo component
+// Displays the recently added properties
 const PropertyInfo = () => {
   return (
     <>
       <section className="grids-4">
-        <div id="grids4-block" className="py-5">
-          <div className="container py-md-3">
+        <div id="grids4-block" className="py-2">
+          <div className="py-md-3">
             <div className="heading text-center mx-auto">
               <h3 className="head">Recently Added Properties</h3>
               <p className="my-3 head">
@@ -277,7 +327,7 @@ const PropertyInfo = () => {
                 India, offering comfort and convenience.
               </p>
             </div>
-            <div className="row ">
+            <div className="row">
               <Main />
             </div>
           </div>
@@ -287,11 +337,14 @@ const PropertyInfo = () => {
   );
 }
 
+
+// ContactUs component
+// Displays the contact information and a call to action
 const ContactUs = () => {
   return (
     <>
       <section className="w3l-customers-7">
-        <div className="customers_sur py-5">
+        <div className="customers_sur py-2">
           <div className="container py-md-3">
             <div className="customers-top_sur row">
               <div className="customers-left_sur col-lg-6">
@@ -332,11 +385,13 @@ const ContactUs = () => {
   );
 };
 
+// Testimonials component
+// Displays client testimonials
 const Testimonials = () => {
   return (
     <>
       <section className="w3l-customers-8" id="testimonials">
-        <div className="customers_sur py-5">
+        <div className="customers_sur py-2">
           <div className="container py-md-3">
             <div className="heading text-center mx-auto">
               <h3 className="head">Happy Clients</h3>
@@ -345,10 +400,10 @@ const Testimonials = () => {
                 services.
               </p>
             </div>
-            <div className="customers-top_sur row mt-5 pt-3">
+            <div className="customers-top_sur row mt-2 pt-3">
               <div className="customers-left_sur col-md-6">
                 <div className="customers_grid">
-                  <ul className="mb-3 d-flex justify-content-center gap-5 align-items-center">
+                  <ul className="mb-3 d-flex justify-content-center gap-2 align-items-center">
                     <li className="rated">
                       <span className="fa fa-star" />
                     </li>
@@ -372,18 +427,18 @@ const Testimonials = () => {
                   <div className="customers-bottom_sur row">
                     <div className="custo-img-res col-3">
                       <img
-                        src="assets/images/te2.jpg"
-                        alt=" "
+                        src="assets/images/rahul.png"
+                        alt="no-image"
                         className="img-responsive rounded-circle"
                         style={{
                           width: "100px",
-                          height: "100px",
+                          // height: "100px",
                           objectFit: "cover",
                         }}
                       />
                     </div>
                     <div className="custo_grid col-9">
-                      <h5>Rajesh Sharma</h5>
+                      <h5>Rahul Kumawat</h5>
                       <span>Landlord</span>
                     </div>
                   </div>
@@ -391,7 +446,7 @@ const Testimonials = () => {
               </div>
               <div className="customers-middle_sur col-md-6 mt-md-0 mt-4">
                 <div className="customers_grid">
-                  <ul className="mb-3 d-flex justify-content-center gap-5 align-items-center">
+                  <ul className="mb-3 d-flex justify-content-center gap-2 align-items-center">
                     <li className="rated">
                       <span className="fa fa-star" />
                     </li>
@@ -415,13 +470,13 @@ const Testimonials = () => {
                   <div className="customers-bottom_sur row">
                     <div className="custo-img-res col-3">
                       <img
-                        src="assets/images/te3.jpg"
-                        alt=" "
+                        src="assets/images/w1.jpg"
+                        alt="no-image"
                         className="img-responsive rounded-circle"
                         style={{
                           width: "100px",
                           height: "100px",
-                          objectFit: "cover",
+                          objectFit: 'cover',
                         }}
                       />
                     </div>
