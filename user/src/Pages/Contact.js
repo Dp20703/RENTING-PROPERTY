@@ -226,7 +226,7 @@ function ContactForm() {
                   to="mailto:contact@realestate.in"
                   className="mail"
                 >
-                  contact@realestate.in
+                  rentingproperties@gmail.com
                 </Link>
               </p>
             </div>
