@@ -470,13 +470,14 @@ const Testimonials = () => {
                   <div className="customers-bottom_sur row">
                     <div className="custo-img-res col-3">
                       <img
-                        src="assets/images/w1.jpg"
+                        src="assets/images/w2.jpg"
                         alt="no-image"
                         className="img-responsive rounded-circle"
                         style={{
-                          width: "100px",
                           height: "100px",
+                          width: "100px",
                           objectFit: 'cover',
+                          objectPosition:'bottom'
                         }}
                       />
                     </div>

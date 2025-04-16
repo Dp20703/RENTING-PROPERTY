@@ -22,6 +22,7 @@ function Main() {
     password: "",
     role: "user",
   });
+  const [loading, setLoading] = useState(false);
 
   const [errors, setErrors] = useState({}); // Store validation errors
 
@@ -83,7 +84,7 @@ function Main() {
       toast.error("Please fix the errors before submitting");
       return;
     }
-
+setLoading(true);
     try {
       const formData = new FormData();
       formData.append("firstName", data.firstName);
@@ -107,6 +108,7 @@ function Main() {
       console.log(error);
       toast.error(error.response.data.message);
     }
+    setLoading(false);
   };
 
   return (
@@ -224,7 +226,9 @@ function Main() {
                   {/* </div> */}
 
                   <button type="submit" onClick={handleSignUp}>
-                    Sign Up
+                  {
+                      loading ? "Sending..." : " SignUP"
+                    }
                   </button>
                 </form>
                 <p className="text-center pt-2">

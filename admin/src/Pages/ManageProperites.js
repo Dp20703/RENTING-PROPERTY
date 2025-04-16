@@ -226,7 +226,7 @@ function Main() {
                           <td>{property.title}</td>
                           <td>{property.propertyType}</td>
                           <td>{property.location}</td>
-                          <td>{property.price}</td>
+                          <td>₹{property.price}</td>
                           <td>
                             <span
                               className={`badge ${
@@ -309,7 +309,7 @@ function Main() {
                   <strong>Location:</strong> {selectedProperty.location}
                 </p>
                 <p>
-                  <strong>Price:</strong> {selectedProperty.price}
+                  <strong>Price:</strong> ₹{selectedProperty.price}
                 </p>
                 <p>
                   <strong>Size:</strong> {selectedProperty.size}

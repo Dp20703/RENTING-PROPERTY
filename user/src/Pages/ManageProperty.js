@@ -81,7 +81,7 @@ function Main() {
                       <strong>Location:</strong> {property.location}
                     </li>
                     <li>
-                      <strong>Rent:</strong> {property.price}
+                      <strong>Rent:</strong> ₹{property.price}
                     </li>
                     <li>
                       <strong>Type:</strong> {property.propertyType}

@@ -215,7 +215,7 @@ function Main() {
                 <input
                   type="text"
                   name="firstName"
-                  value={user.firstName || "N/A"}
+                  value={user.firstName}
                   onChange={handleChange}
                   className="form-control mb-1"
                   placeholder="Enter name"
@@ -231,7 +231,7 @@ function Main() {
                 <input
                   type="text"
                   name="lastName"
-                  value={user.lastName || "N/A"}
+                  value={user.lastName}
                   onChange={handleChange}
                   className="form-control mb-1"
                   required
@@ -248,7 +248,7 @@ function Main() {
               <input
                 type="email"
                 name="email"
-                value={user.email || "N/A"}
+                value={user.email}
                 onChange={handleChange}
                 className="form-control "
                 placeholder="Enter email"
