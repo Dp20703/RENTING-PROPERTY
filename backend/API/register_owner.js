@@ -1,5 +1,6 @@
 const { ObjectId } = require("mongodb");
 const connectDB = require("../DB/connectDB");
+const nodemailer = require("nodemailer");
 
 async function register_owner(req, res) {
   try {

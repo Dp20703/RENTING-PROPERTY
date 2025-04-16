@@ -1,4 +1,5 @@
 const connectDB = require("../DB/connectDB");
+const nodemailer = require("nodemailer");
 
 async function register_user(req, res) {
   try {
