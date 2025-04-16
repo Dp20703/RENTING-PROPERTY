@@ -115,9 +115,9 @@ function Main() {
                           <option value="Commercial Property">
                             Commercial
                           </option>
-                          <option value="Apartment">Apartment</option>
+                          {/* <option value="Apartment">Apartment</option>
                           <option value="Villa">Villa</option>
-                          <option value="Plot">Plot</option>
+                          <option value="Plot">Plot</option> */}
                         </select>
                       </div>
                       <div className="form-input col-md-4 mt-3">
