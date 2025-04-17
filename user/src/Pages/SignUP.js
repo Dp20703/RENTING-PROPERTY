@@ -49,10 +49,15 @@ function Main() {
       newErrors.phoneNo = "Phone number must be 10 digits";
     }
 
-    // Password Validation (Minimum 6 Characters)
-    if (data.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
+    // Password Validation (Minimum 8 Characters + Strong Pattern)
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
+
+    if (data.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    } else if (!strongPasswordRegex.test(data.password)) {
+      newErrors.password = "Password must include uppercase, lowercase, number, and special character";
     }
+
 
     // License ID Validation (Only Required for Owners)
     if (data.role === "owner" && !data.l_Id) {
@@ -84,7 +89,7 @@ function Main() {
       toast.error("Please fix the errors before submitting");
       return;
     }
-setLoading(true);
+    setLoading(true);
     try {
       const formData = new FormData();
       formData.append("firstName", data.firstName);
@@ -204,7 +209,7 @@ setLoading(true);
                     required
                   />
                   {errors.password && (
-                    <small className="text-danger">{errors.password}<br/></small>
+                    <small className="text-danger">{errors.password}<br /></small>
                   )}
 
                   {/* Role Selection */}
@@ -226,7 +231,7 @@ setLoading(true);
                   {/* </div> */}
 
                   <button type="submit" onClick={handleSignUp}>
-                  {
+                    {
                       loading ? "Sending..." : " SignUP"
                     }
                   </button>
