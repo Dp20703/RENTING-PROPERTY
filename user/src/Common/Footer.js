@@ -57,8 +57,8 @@ const Footer = () => {
                             <h6 className="footer-title-28 text-warning">Support</h6>
                             <ul className="list-unstyled mt-3">
                                 <li><Link id="link" to="/faq" className="text-white">FAQs</Link></li>
-                                <li><Link id="link" to="/privacy-policy" className="text-white">Privacy Policy</Link></li>
-                                <li><Link id="link" to="/terms" className="text-white">Terms & Conditions</Link></li>
+                                <li><Link id="link" to="/privacy_policy" className="text-white">Privacy Policy</Link></li>
+                                <li><Link id="link" to="/terms_conditions" className="text-white">Terms & Conditions</Link></li>
                             </ul>
                         </div>
 
