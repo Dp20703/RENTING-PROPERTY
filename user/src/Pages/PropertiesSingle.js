@@ -242,6 +242,7 @@ const RentForm = (props) => {
             type="text"
             className="form-control"
             name="name"
+            placeholder="Enter your name"
             value={formData.name}
             onChange={handleChange}
             required
@@ -251,6 +252,7 @@ const RentForm = (props) => {
           <label className="form-label">Email</label>
           <input
             type="email"
+            placeholder="Enter your email"
             className="form-control"
             name="email"
             value={formData.email}
@@ -262,6 +264,7 @@ const RentForm = (props) => {
           <label className="form-label">Phone Number</label>
           <input
             type="tel"
+            placeholder="Enter your phone number"
             className="form-control"
             name="phone"
             value={formData.phone}
@@ -273,6 +276,7 @@ const RentForm = (props) => {
           <label className="form-label">Inquiry Details</label>
           <textarea
             className="form-control"
+            placeholder="Enter your inquiry details"
             name="inquiry"
             value={formData.inquiry}
             rows="4"
