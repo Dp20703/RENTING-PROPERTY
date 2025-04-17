@@ -64,11 +64,15 @@ function Main() {
       newErrors.phoneNo = "Phone number must be 10 digits";
     }
 
-    // Password Validation (Minimum 6 Characters)
-    if (user.password.length < 6) {
-      newErrors.password = "Password must be at least 6 characters";
-    }
+   
+    // Password Validation (Minimum 8 Characters + Strong Pattern)
+    const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 
+    if (user.password.length < 8) {
+      newErrors.password = "Password must be at least 8 characters";
+    } else if (!strongPasswordRegex.test(user.password)) {
+      newErrors.password = "Password must include uppercase, lowercase, number, and special character";
+    }
     // Bio Validation (Optional)
     if (user.bio.length < 20) {
       newErrors.bio = "Bio must be at least 20 characters"
