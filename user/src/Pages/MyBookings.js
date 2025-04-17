@@ -99,7 +99,7 @@ function Main() {
         key: "rzp_test_VQhEfe2NCXbbwI",
         amount: orderAmount.toString(),
         currency: currency,
-        name: "Rent it All",
+        name: "Renting Properties",
         order_id: order_id,
         handler: async function (response) {
           try {
@@ -128,7 +128,7 @@ function Main() {
         prefill: {
           name: "Renting Properties",
           email: "rentingproperties@email.com",
-          contact: "9856748596",
+          contact: "7096894573",
         },
         notes: {
           address: "Ahmedabad",
@@ -187,15 +187,14 @@ function Main() {
                   <td>{new Date(booking.endDate).toLocaleDateString()}</td>
                   <td>
                     <span
-                      className={`badge ${
-                        booking.status === "Confirmed"
+                      className={`badge ${booking.status === "Confirmed"
                           ? "badge-info"
                           : booking.status === "Paid"
-                          ? "badge-success"
-                          : booking.status === "Canceled"
-                          ? "badge-danger"
-                          : "badge-warning"
-                      }`}
+                            ? "badge-success"
+                            : booking.status === "Canceled"
+                              ? "badge-danger"
+                              : "badge-warning"
+                        }`}
                     >
                       {booking.status}
                     </span>

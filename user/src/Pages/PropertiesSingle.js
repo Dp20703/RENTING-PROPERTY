@@ -21,6 +21,7 @@ const PropertiesSingle = () => {
 const Main = () => {
   const [rentForm, setRentForm] = useState(false);
   const [isLoggein, setIsLoggedIn] = useState(false);
+  const [role, setRole] = useState("");
   const location = useLocation();
 
   const propertyDetailss = location.state;
@@ -30,6 +31,7 @@ const Main = () => {
       const checkAuth = await checkSession();
       if (checkAuth.isAuth) {
         setIsLoggedIn(true);
+        setRole(checkAuth.sessionData.role);
       }
     } catch (error) {
       setIsLoggedIn(false);
@@ -152,7 +154,7 @@ const Main = () => {
               </ul>
             </div>
           </div>
-
+{role==="user" && 
           <div className="row mt-5">
             <div className="col-md-12 d-flex justify-content-center gap-3">
               {isLoggein ? (
@@ -182,7 +184,7 @@ const Main = () => {
               </button>
             </div>
           </div>
-
+}
           {/* Rent This Property Form */}
           <div className="rent-form">
             {rentForm ? (
