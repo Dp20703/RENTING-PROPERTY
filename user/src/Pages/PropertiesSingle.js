@@ -154,37 +154,54 @@ const Main = () => {
               </ul>
             </div>
           </div>
-{role==="user" && 
           <div className="row mt-5">
             <div className="col-md-12 d-flex justify-content-center gap-3">
-              {isLoggein ? (
-                <Link
-                  to={"/booking"}
-                  state={propertyDetailss}
-                  className="btn btn-primary btn-lg"
-                >
-                  Book Now
-                </Link>
-              ) : (
-                <Link to={"/login"} className="btn btn-primary btn-lg">
-                  Login to Book
-                </Link>
+              {!isLoggein && (
+                <>
+                  <Link to={"/login"} className="btn btn-primary btn-lg">
+                    Login to Book
+                  </Link>
+                  <button
+                    className="btn btn-outline-primary btn-lg"
+                    onClick={() => {
+                      document
+                        .querySelector(".rent-form")
+                        .scrollTo(0, 0, { behavior: "smooth" });
+                      toggleRentForm();
+                    }}
+                  >
+                    Make Inquiry
+                  </button>
+                </>
               )}
-              <button
-                className="btn btn-outline-primary btn-lg"
-                onClick={() => {
-                  document
-                    .querySelector(".rent-form")
-                    .scrollTo(0, 0, { behavior: "smooth" });
-                  // setRentForm(true);
-                  toggleRentForm();
-                }}
-              >
-                Make Inquiry
-              </button>
+
+              {isLoggein && role === "user" && (
+                <>
+                  <Link
+                    to={"/booking"}
+                    state={propertyDetailss}
+                    className="btn btn-primary btn-lg"
+                  >
+                    Book Now
+                  </Link>
+                  <button
+                    className="btn btn-outline-primary btn-lg"
+                    onClick={() => {
+                      document
+                        .querySelector(".rent-form")
+                        .scrollTo(0, 0, { behavior: "smooth" });
+                      toggleRentForm();
+                    }}
+                  >
+                    Make Inquiry
+                  </button>
+                </>
+              )}
+
+              {/* If owner is logged in, show nothing */}
             </div>
           </div>
-}
+
           {/* Rent This Property Form */}
           <div className="rent-form">
             {rentForm ? (
