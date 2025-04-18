@@ -11,7 +11,6 @@ import Login from "./Pages/Login";
 import SignUP from "./Pages/SignUP";
 import Properties from "./Pages/Properties";
 import PropertiesSingle from "./Pages/PropertiesSingle";
-import SearchResults from "./Pages/SearchResults";
 import Profile from "./Pages/Profile";
 import OwnerProfile from "./Pages/OwnerProfile";
 import ManagePayments from "./Pages/ManagePayments";

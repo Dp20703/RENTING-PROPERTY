@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import Header from "../Common/Header";
 import Banner from "../Common/Banner";
 import Footer from "../Common/Footer";
-import { Link, Links, useLocation } from "react-router-dom";
+import { Link,useLocation } from "react-router-dom";
 import checkSession from "../auth/authService";
 import axios from "axios";
 import { toast } from "react-toastify";
