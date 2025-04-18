@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Header from "../Common/Header";
 import Footer from "../Common/Footer";
-import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
+import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
@@ -22,9 +22,7 @@ function Main() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get(
-        "http://localhost:8000/get_user_booking"
-      );
+      const response = await axios.get("http://localhost:8000/get_user_booking");
       setBookings(response.data.data);
       console.log(response.data.data);
     } catch (error) {
@@ -39,7 +37,6 @@ function Main() {
 
   const handleCancelBooking = async (e, requestId) => {
     e.preventDefault();
-
     try {
       await axios.post("http://localhost:8000/cancel_booking", { requestId });
       toast.success("Booking Cancelled Successfully!!", {
@@ -54,20 +51,22 @@ function Main() {
     return new Promise((resolve) => {
       const script = document.createElement("script");
       script.src = src;
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
+      script.onload = () => resolve(true);
+      script.onerror = () => resolve(false);
       document.body.appendChild(script);
     });
   }
 
-  const displayRazorpay = async (datas) => {
-    const res = await loadScript(
-      "https://checkout.razorpay.com/v1/checkout.js"
-    );
+  const calculateDays = (start, end) => {
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+    const diffTime = Math.abs(endDate - startDate);
+    const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    return diffDays;
+  };
+
+  const displayRazorpay = async (booking) => {
+    const res = await loadScript("https://checkout.razorpay.com/v1/checkout.js");
 
     if (!res) {
       toast.error("Please check network connection!");
@@ -76,24 +75,20 @@ function Main() {
 
     try {
       // Step 1: Create an order on the backend
-      const orderResponse = await axios.post(
-        "http://localhost:8000/generateOrderId",
-        {
-          totalPrice: datas.propertyPrice,
-        }
-      );
+      const days = calculateDays(booking.startDate, booking.endDate);
+      const months = Math.ceil(days / 30); // Round up to nearest full month
+      const totalPrice = months * booking.propertyPrice;
+
+      const orderResponse = await axios.post("http://localhost:8000/generateOrderId", {
+        totalPrice: totalPrice,
+      });
 
       if (!orderResponse.data || !orderResponse.data.order) {
         toast.error("Failed to get order details. Please try again.");
         return;
       }
-
       // Step 2: Extract order details
-      const {
-        amount: orderAmount,
-        id: order_id,
-        currency,
-      } = orderResponse.data.order;
+      const { amount: orderAmount, id: order_id, currency } = orderResponse.data.order;
 
       const options = {
         key: "rzp_test_VQhEfe2NCXbbwI",
@@ -104,18 +99,15 @@ function Main() {
         handler: async function (response) {
           try {
             // Step 3: Verify the payment
-            const verifyResponse = await axios.post(
-              "http://localhost:8000/make_payment",
-              {
-                requestId: datas._id,
-                property_Id: datas.property_Id,
-                owner_Id: datas.owner_Id,
-                startDate: datas.startDate,
-                endDate: datas.endDate,
-                amount: datas.propertyPrice,
-                transactionId: order_id,
-              }
-            );
+            const verifyResponse = await axios.post("http://localhost:8000/make_payment", {
+              requestId: booking._id,
+              property_Id: booking.property_Id,
+              owner_Id: booking.owner_Id,
+              startDate: booking.startDate,
+              endDate: booking.endDate,
+              amount: totalPrice,
+              transactionId: order_id,
+            });
 
             toast.success(verifyResponse.data.message, {
               onClose: () => navigate("/"),
@@ -147,12 +139,8 @@ function Main() {
   };
 
   return (
-    <div
-      className="container mt-5"
-      style={{ minHeight: "90vh", marginBottom: "70px" }}
-    >
+    <div className="container mt-5" style={{ minHeight: "90vh", marginBottom: "70px" }}>
       <h2 className="text-center mb-4">My Bookings</h2>
-
       <div className="table-responsive">
         <table className="table table-bordered table-hover text-center">
           <thead className="thead-dark">
@@ -171,29 +159,29 @@ function Main() {
           <tbody>
             {bookings?.length === 0 ? (
               <tr>
-                <td colSpan="8" className="text-center">
+                <td colSpan="9" className="text-center">
                   No bookings found.
                 </td>
               </tr>
             ) : (
-              bookings?.map((booking, index) => (
-                <tr key={booking.bookingId}>
+              bookings.map((booking, index) => (
+                <tr key={booking._id}>
                   <td>{index + 1}</td>
                   <td>{booking._id}</td>
                   <td>{booking.propertyName}</td>
-                  <td>{booking.propertyPrice}</td>
+                  <td>₹{booking.propertyPrice}</td>
                   <td>{booking.owner_Id}</td>
                   <td>{new Date(booking.startDate).toLocaleDateString()}</td>
                   <td>{new Date(booking.endDate).toLocaleDateString()}</td>
                   <td>
                     <span
                       className={`badge ${booking.status === "Confirmed"
-                          ? "badge-info"
-                          : booking.status === "Paid"
-                            ? "badge-success"
-                            : booking.status === "Canceled"
-                              ? "badge-danger"
-                              : "badge-warning"
+                        ? "badge-info"
+                        : booking.status === "Paid"
+                          ? "badge-success"
+                          : booking.status === "Canceled"
+                            ? "badge-danger"
+                            : "badge-warning"
                         }`}
                     >
                       {booking.status}
