@@ -27,9 +27,11 @@ function Main() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        `${BACKEND_URL}/admin_login`,
+        `${BACKEND_URL}/admin_login`, { withCredentials: true },
         data
       );
+      console.log("ADMIN LOGIN :", `${BACKEND_URL}/admin_login`);
+      console.log("REPONSE OF ADMIN LOGIN: ", response.data);
 
       toast.success("Login Successfully!!", {
         onClose: () => window.location.reload(),
