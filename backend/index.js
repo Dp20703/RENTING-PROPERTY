@@ -71,13 +71,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-app.use(
-  cors({
-    origin: "*",
-    credentials: true,
-    methods: ["GET", "POST", "PUT", "DELETE"],
-  })
-);
+app.use(cors());
 
 app.use(
   session({
