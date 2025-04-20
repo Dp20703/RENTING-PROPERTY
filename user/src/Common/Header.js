@@ -3,27 +3,26 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { toast } from "react-toastify";
 import checkSession from "../auth/authService";
+import { BACKEND_URL } from "../constant";
 
 const Header = () => {
   const location = useLocation();
   const [login, setLogin] = useState(false);
   const role = localStorage.getItem("role");
-  let userType = role || null;
+  const userType = role || null;
 
   useEffect(() => {
     const checkLoginStatus = async () => {
       const chechAuth = await checkSession();
-      const loggedIn = chechAuth.isAuth;
-      setLogin(loggedIn);
+      setLogin(chechAuth.isAuth);
     };
-
     checkLoginStatus();
   }, [location.pathname]);
 
   // Handle Logout
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/logout");
+      await axios.get(`${BACKEND_URL}/logout`, { withCredentials: true });
       toast.success("Logged out successfully!", {
         onClose: () => window.location.reload(),
       });
