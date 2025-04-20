@@ -81,7 +81,7 @@ function Main() {
   return (
     <>
       {" "}
-      <GoogleOAuthProvider clientId="465881626835-6d5omr4h1797kt6u1l1t1i3pbrqmk9o6.apps.googleusercontent.com">
+      <GoogleOAuthProvider clientId="656153424458-qvggjs381b2fo46n3e9hqfqm687glu0p.apps.googleusercontent.com">
         <section className="w3l-forms-23">
           <div id="forms23-block">
             <div className="wrapper">
