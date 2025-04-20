@@ -79,15 +79,18 @@ app.use(
   })
 );
 
+const isProduction = process.env.IS_PRODUCTION;
+
 app.use(
   session({
-    secret: "secret",
+    secret: "your_secret_key",
     resave: false,
-    saveUninitialized: true,
+    saveUninitialized: false,
     cookie: {
       httpOnly: true,
-      sameSite: "lax",
-      secure: false,
+      secure: isProduction, // only true in production (needs HTTPS)
+      sameSite: isProduction ? "none" : "lax", // 'none' required for cross-site cookies
+      maxAge: 24 * 60 * 60 * 7000, // 7 days
     },
   })
 );
