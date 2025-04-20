@@ -1,6 +1,7 @@
 const connectDB = require("./DB/connectDB");
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 const { register_user } = require("./API/register_user");
 const { register_owner } = require("./API/register_owner");
 const { upload_property } = require("./API/upload_property");
@@ -90,6 +91,8 @@ app.use(
   })
 );
 
+
+app.use("/images", express.static(path.join(__dirname, "images")));
 app.use("/images/idProof", express.static("images/idProof"));
 app.use("/images/profilePic", express.static("images/profilePic"));
 app.use("/images/propertyImg", express.static("images/propertyImg"));
