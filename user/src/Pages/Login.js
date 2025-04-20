@@ -59,6 +59,8 @@ function Main() {
     try {
       const res = await axios.post(`${BACKEND_URL}/auth/google`, {
         credential: response.credential,
+      }, {
+        withCredentials: true
       });
 
       console.log(`${BACKEND_URL}/auth/google`
