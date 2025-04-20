@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import checkSession from "../auth/authService";
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../constant";
 
 const Navigation = () => {
   useEffect(() => {

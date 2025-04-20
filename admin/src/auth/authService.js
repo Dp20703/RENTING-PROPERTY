@@ -1,6 +1,6 @@
 // authService.js
 import axios from "axios";
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../constant";
 
 axios.defaults.withCredentials = true;
 

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import checkSession from "../auth/authService";
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../constant";
 
 const Slider = () => {
   return (

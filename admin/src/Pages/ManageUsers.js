@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../constant";
 
 const ManageUsers = () => {
   return (
@@ -196,9 +196,8 @@ function Main() {
                         {[...Array(totalPages).keys()].map((page) => (
                           <li
                             key={page}
-                            className={`page-item ${
-                              currentPage === page + 1 ? "active" : ""
-                            }`}
+                            className={`page-item ${currentPage === page + 1 ? "active" : ""
+                              }`}
                             onClick={() => handlePageChange(page + 1)}
                           >
                             <button className="page-link">{page + 1}</button>

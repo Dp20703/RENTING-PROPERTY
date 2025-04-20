@@ -4,7 +4,7 @@ import Slider from "../Common/Slider";
 import Footer from "../Common/Footer";
 import axios from "axios";
 import { Link } from "react-router-dom";
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../constant";
 
 const Home = () => {
   return (
@@ -108,8 +108,8 @@ function Header() {
             <div className="col-md-6 col-lg-4 mb-3">
               <div className="card text-white bg-danger shadow-sm">
                 <div className="card-body text-center">
-                <Link to="/manage_payments" style={{ color: "inherit" }}>
-                  <i className="fa fa-money fa-2x"></i></Link>
+                  <Link to="/manage_payments" style={{ color: "inherit" }}>
+                    <i className="fa fa-money fa-2x"></i></Link>
                   <h5 className="card-title mt-2">Total Revenue</h5>
                   <h2 className="fw-bold">
                     ₹ {data.totalRevenue.toLocaleString()}

@@ -6,7 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../constant";
 
 const ManageProperties = () => {
   return (
@@ -231,9 +231,9 @@ function Main() {
                           <td>
                             <span
                               className={`badge ${property.status === "Pending" ||
-                                  property.status === "deleted"
-                                  ? "bg-danger text-white"
-                                  : "bg-success text-white"
+                                property.status === "deleted"
+                                ? "bg-danger text-white"
+                                : "bg-success text-white"
                                 }`}
                             >
                               {property.status.toUpperCase()}

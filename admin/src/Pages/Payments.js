@@ -5,7 +5,7 @@ import Footer from "../Common/Footer";
 import axios from "axios";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../constant";
 
 const Payments = () => {
   return (

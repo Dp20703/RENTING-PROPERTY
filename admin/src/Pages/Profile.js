@@ -5,7 +5,7 @@ import Footer from "../Common/Footer";
 import checkSession from "../auth/authService";
 import { toast } from "react-toastify";
 import axios from "axios";
-import { BACKEND_URL } from "../../constant";
+import { BACKEND_URL } from "../constant";
 
 const Profile = () => {
   return (

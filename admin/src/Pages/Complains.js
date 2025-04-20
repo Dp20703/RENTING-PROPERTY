@@ -4,8 +4,7 @@ import Navigation from "../Common/Navigation";
 import Footer from "../Common/Footer";
 import axios from "axios";
 import { toast } from "react-toastify";
-import { BACKEND_URL } from "../../constant";
-
+import { BACKEND_URL } from "../constant";
 const Complaints = () => {
   return (
     <>
