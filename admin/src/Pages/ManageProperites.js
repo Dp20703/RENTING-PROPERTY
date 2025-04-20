@@ -110,7 +110,7 @@ function Main() {
     if (window.confirm("Are you sure you want to delete this property?")) {
       try {
         await axios.delete(
-          `${BACKEND_URL} / delete_property / ${propertyId}`
+          `${BACKEND_URL}/delete_property/${propertyId}`
         );
         toast.success("Property deleted successfully");
         setDataItems(
