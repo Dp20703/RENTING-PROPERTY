@@ -2,8 +2,11 @@ async function Session(req, res) {
     try {
 
         const userDatas = req.session.user;
- 
+        console.log(userDatas);
+        
         if (!userDatas) {
+            console.log("No sesssion created!");
+            
             return res.status(401).json({ success: false, message: "No sesssion created!" });
         } else {
             res.status(200)

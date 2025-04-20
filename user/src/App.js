@@ -42,9 +42,10 @@ const App = () => {
     const authenticateUser = async () => {
       try {
         const checkAuth = await checkSession();
-
+        console.log("CHEK AUTH :", checkAuth);
         if (checkAuth.isAuth) {
           setIsAuthenticated(true);
+          console.log("IS AUTH TRUE DONE:", isAuthenticated);
         }
       } catch (error) {
         setIsAuthenticated(false);
@@ -86,8 +87,8 @@ const App = () => {
             <Route path="/forgot_password" element={<ForgotPassword />} />
             <Route path="/verifyOTP" element={<VerifyOTP />} />
             <Route path="/resetPassword" element={<ResetPassword />} />
-            <Route path="/privacy_policy" element={<PrivacyPolicy/>} />
-            <Route path="/terms_conditions" element={<TermsAndConditions/>} />
+            <Route path="/privacy_policy" element={<PrivacyPolicy />} />
+            <Route path="/terms_conditions" element={<TermsAndConditions />} />
 
             {/* user Routes*/}
             <Route

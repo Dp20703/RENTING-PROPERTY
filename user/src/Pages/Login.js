@@ -1,6 +1,6 @@
 import axios from "axios";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GoogleLogin } from "@react-oauth/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
@@ -19,6 +19,7 @@ function Main() {
     password: "",
   });
   const [errors, setErrors] = useState({});
+  const navigate = useNavigate()
 
   const validate = () => {
     let newErrors = {};
@@ -47,7 +48,7 @@ function Main() {
       localStorage.setItem("role", response.data.userDetails.session.role);
 
       toast.success("Login Successfully!!", {
-        onClose: () => window.location.reload(),
+        onClose: () => navigate("/")
       });
     } catch (error) {
       toast.error(error.response.data.message);
@@ -61,7 +62,7 @@ function Main() {
       });
 
       console.log(`${BACKEND_URL}/auth/google`
-        
+
       );
 
 
