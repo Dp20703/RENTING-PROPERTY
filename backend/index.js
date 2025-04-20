@@ -71,13 +71,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
-app.use(cors());
+app.use(
+  cors({
+    origin: ["https://renting-property-user.vercel.app", "http://localhost:3000", "http://localhost:3001", "https://renting-property-admin.vercel.app"],
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 app.use(
   session({
     secret: "secret",
     resave: false,
     saveUninitialized: true,
+    cookie: {
+      sameSite: "none",
+      secure: true,
+    },
   })
 );
 
