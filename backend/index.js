@@ -69,8 +69,8 @@ connectDB();
 const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-
 const client = new OAuth2Client(process.env.GOOGLE_CLIENT_ID);
+app.set("trust proxy", 1)
 app.use(
   cors({
     origin: ["https://renting-property-user.vercel.app", "http://localhost:3000", "http://localhost:3001", "https://renting-property-admin.vercel.app"],
@@ -90,7 +90,7 @@ app.use(
       httpOnly: true,
       secure: isProduction, // only true in production (needs HTTPS)
       sameSite: isProduction ? "none" : "lax", // 'none' required for cross-site cookies
-      maxAge: 24 * 60 * 60 * 7000, // 7 days
+      maxAge: 24 * 60 * 60 * 1000 * 7, // 7 days
     },
   })
 );
