@@ -83,7 +83,7 @@ const isProduction = process.env.IS_PRODUCTION;
 
 app.use(
   session({
-    secret: "your_secret_key",
+    secret: "secret",
     resave: false,
     saveUninitialized: false,
     cookie: {
