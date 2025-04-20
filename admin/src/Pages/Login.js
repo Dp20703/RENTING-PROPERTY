@@ -29,7 +29,7 @@ function Main() {
       console.log("inside try of handle login of admin");
 
       const response = await axios.post(
-        `${BACKEND_URL}/admin_login`, { withCredentials: true },
+        `${BACKEND_URL}/admin_login`,
         data
       );
       console.log("ADMIN LOGIN :", `${BACKEND_URL}/admin_login`);
