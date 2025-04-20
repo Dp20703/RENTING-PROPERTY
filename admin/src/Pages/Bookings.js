@@ -5,6 +5,7 @@ import Footer from "../Common/Footer";
 import axios from "axios";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { BACKEND_URL } from "../../constant";
 
 const ManageBookings = () => {
   return (
@@ -95,7 +96,7 @@ function Main() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/fetch_all_booking"
+        `${BACKEND_URL}/fetch_all_booking`
       );
       const responseData = response.data.userDetails || [];
       const revesedData = responseData.reverse();
@@ -140,14 +141,14 @@ function Main() {
             <div className="x_panel">
               <div className="x_title d-flex justify-content-between align-items-center">
                 <h2>Bookings List</h2>
-                  {bookings.length > 0 && (
-                    <button
-                      className="btn btn-success btn-sm"
-                      onClick={downloadPDF}
-                    >
-                      <i className="fa fa-download mr-1"></i> Download PDF
-                    </button>
-                  )}
+                {bookings.length > 0 && (
+                  <button
+                    className="btn btn-success btn-sm"
+                    onClick={downloadPDF}
+                  >
+                    <i className="fa fa-download mr-1"></i> Download PDF
+                  </button>
+                )}
                 {/* <div className="clearfix" /> */}
               </div>
               <div className="x_content">

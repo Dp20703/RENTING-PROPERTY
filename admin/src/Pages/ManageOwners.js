@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { BACKEND_URL } from "../../constant";
 
 const ManageOwners = () => {
   return (
@@ -27,7 +28,7 @@ function Main() {
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/fetch_all_owner");
+      const response = await axios.get(`${BACKEND_URL}/fetch_all_owner`);
       const responseData = response.data.data || [];
       const revesedData = responseData.reverse();
       setOwners(revesedData);
@@ -49,7 +50,7 @@ function Main() {
   const handleDelete = async (ownerId) => {
     if (window.confirm("Are you sure you want to delete this owner?")) {
       try {
-        await axios.delete(`http://localhost:8000/delete_owner/${ownerId}`);
+        await axios.delete(`${BACKEND_URL}/delete_owner/${ownerId}`);
         toast.success("Owner deleted");
         setOwners(owners.filter((owner) => owner._id !== ownerId));
       } catch (error) {

@@ -4,6 +4,7 @@ import Navigation from "../Common/Navigation";
 import Footer from "../Common/Footer";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../constant";
 
 const Feedback = () => {
   return (
@@ -23,7 +24,7 @@ function Main() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/fetch_all_feedback"
+        `${BACKEND_URL}/fetch_all_feedback`
       );
       const responseData = response.data.data || [];
       const revesedData = responseData.reverse();
@@ -56,13 +57,12 @@ function Main() {
     }
     setLoading({ ...loading, [id]: true });
     try {
-     const res= await axios.post("http://localhost:8000/respond_feedback", {
+      const res = await axios.post(`${BACKEND_URL}/respond_feedback`, {
         feedbackId: id,
         responseMessage,
       });
 
-      if(res.status==200)
-      {
+      if (res.status == 200) {
         setFeedbacks(
           feedbacks.map((feedback) =>
             feedback._id === id
@@ -145,11 +145,11 @@ function Main() {
                             <button
                               className="btn btn-primary btn-sm mt-2"
                               onClick={() => handleResponseSubmit(feedback._id)}
-                             disabled={loading[feedback._id]}
+                              disabled={loading[feedback._id]}
                             >
-                                {
-                              loading[feedback._id] ? "Sending..." : " Submit Response"
-                            }
+                              {
+                                loading[feedback._id] ? "Sending..." : " Submit Response"
+                              }
                             </button>
                           </div>
                         )}

@@ -4,6 +4,7 @@ import Slider from "../Common/Slider";
 import Footer from "../Common/Footer";
 import axios from "axios";
 import { Link } from "react-router-dom";
+import { BACKEND_URL } from "../../constant";
 
 const Home = () => {
   return (
@@ -36,7 +37,7 @@ function Header() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/getDashboardCounts"
+        `${BACKEND_URL}/getDashboardCounts`
       );
       const responseData = response.data.data;
       setData(responseData);

@@ -5,6 +5,7 @@ import Footer from "../Common/Footer";
 import axios from "axios";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { BACKEND_URL } from "../../constant";
 
 const Payments = () => {
   return (
@@ -100,7 +101,7 @@ function Main() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/fetch_all_payment"
+        `${BACKEND_URL}/fetch_all_payment`
       );
       const responseData = response.data.payments || [];
       const revesedData = responseData.reverse();
@@ -195,10 +196,10 @@ function Main() {
                             <td>
                               <span
                                 className={`p-1 badge ${payment.status === "pending"
-                                    ? "bg-warning"
-                                    : payment.status === "Success"
-                                      ? "bg-success text-white"
-                                      : "bg-danger text-white"
+                                  ? "bg-warning"
+                                  : payment.status === "Success"
+                                    ? "bg-success text-white"
+                                    : "bg-danger text-white"
                                   }`}
                               >
                                 {payment.status}

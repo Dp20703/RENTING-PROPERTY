@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { BACKEND_URL } from "../../constant";
 
 const ManageProperties = () => {
   return (
@@ -88,7 +89,7 @@ function Main() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/admin_fetch_all_property"
+        `${BACKEND_URL}/admin_fetch_all_property`
       );
       const responseData = response.data.data || [];
       const revesedData = responseData.reverse();
@@ -109,7 +110,7 @@ function Main() {
     if (window.confirm("Are you sure you want to delete this property?")) {
       try {
         await axios.delete(
-          `http://localhost:8000/delete_property/${propertyId}`
+          `${BACKEND_URL} / delete_property / ${propertyId}`
         );
         toast.success("Property deleted successfully");
         setDataItems(
@@ -229,12 +230,11 @@ function Main() {
                           <td>₹{property.price}</td>
                           <td>
                             <span
-                              className={`badge ${
-                                property.status === "Pending" ||
-                                property.status === "deleted"
+                              className={`badge ${property.status === "Pending" ||
+                                  property.status === "deleted"
                                   ? "bg-danger text-white"
                                   : "bg-success text-white"
-                              }`}
+                                }`}
                             >
                               {property.status.toUpperCase()}
                             </span>
@@ -267,9 +267,8 @@ function Main() {
                       {[...Array(totalPages).keys()].map((page) => (
                         <li
                           key={page}
-                          className={`page-item ${
-                            currentPage === page + 1 ? "active" : ""
-                          }`}
+                          className={`page - item ${currentPage === page + 1 ? "active" : ""
+                            }`}
                           onClick={() => handlePageChange(page + 1)}
                         >
                           <button className="page-link">{page + 1}</button>

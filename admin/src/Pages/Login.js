@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../constant";
 
 const Login = () => {
   return (
@@ -26,7 +27,7 @@ function Main() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/admin_login",
+        `${BACKEND_URL}/admin_login`,
         data
       );
 

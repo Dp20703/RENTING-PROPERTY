@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { BACKEND_URL } from "../../constant";
 
 const ManageUsers = () => {
   return (
@@ -27,7 +28,7 @@ function Main() {
   // Fetch user data from the server:
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/fetch_all_user");
+      const response = await axios.get(`${BACKEND_URL}/fetch_all_user`);
       const responseData = response.data.data || [];
       const revesedData = responseData.reverse();
       setUsers(revesedData);
@@ -49,7 +50,7 @@ function Main() {
   const handleDelete = async (userId) => {
     if (window.confirm("Are you sure you want to delete this user?")) {
       try {
-        await axios.delete(`http://localhost:8000/delete_user/${userId}`);
+        await axios.delete(`${BACKEND_URL}/delete_user/${userId}`);
         toast.success("User deleted");
         setUsers(users.filter((user) => user._id !== userId));
       } catch (error) {

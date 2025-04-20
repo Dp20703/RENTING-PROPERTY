@@ -4,6 +4,7 @@ import Navigation from "../Common/Navigation";
 import Footer from "../Common/Footer";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../constant";
 
 const Complaints = () => {
   return (
@@ -22,7 +23,7 @@ function Main() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/fetch_all_complaint"
+        `${BACKEND_URL}/fetch_all_complaint`
       );
       const responseData = response.data.data || [];
       const revesedData = responseData.reverse();
@@ -57,7 +58,7 @@ function Main() {
     setLoading({ ...loading, [complaintId]: true });
 
     try {
-      const res = await axios.post("http://localhost:8000/respond_complaint", {
+      const res = await axios.post(`${BACKEND_URL}/respond_complaint`, {
         complaintId,
         responseMessage,
       });

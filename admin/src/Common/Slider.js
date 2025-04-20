@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import checkSession from "../auth/authService";
+import { BACKEND_URL } from "../../constant";
 
 const Slider = () => {
   return (
@@ -22,7 +23,7 @@ function Main() {
   };
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/logout");
+      await axios.get(`${BACKEND_URL}/logout`);
       toast.success("Logged out successfully!", {
         onClose: () => window.location.reload(),
       });
@@ -67,10 +68,10 @@ function Main() {
             <div className="profile_pic">
               <Link to={"/profile"}>
                 <img
-                  src={`http://localhost:8000/images/profilePic/${userData.profilePic}`}
+                  src={`${BACKEND_URL}/images/profilePic/${userData.profilePic}`}
                   alt='Profile'
                   height={90}
-                  style={{width:"88px"}}
+                  style={{ width: "88px" }}
                   className="img-circle object-fit-cover profile_img"
                 />
               </Link>
@@ -96,8 +97,8 @@ function Main() {
                     <i className="fa fa-home"></i> Home
                     <span
                       className={`fa ${openMenu === "home"
-                          ? "fa-chevron-up"
-                          : "fa-chevron-down"
+                        ? "fa-chevron-up"
+                        : "fa-chevron-down"
                         }`}
                     ></span>
                   </Link>
@@ -116,8 +117,8 @@ function Main() {
                     <i className="fa fa-edit"></i> Manage
                     <span
                       className={`fa ${openMenu === "manage"
-                          ? "fa-chevron-up"
-                          : "fa-chevron-down"
+                        ? "fa-chevron-up"
+                        : "fa-chevron-down"
                         }`}
                     ></span>
                   </Link>
@@ -156,8 +157,8 @@ function Main() {
                     <i className="fa fa-money"></i>Payments
                     <span
                       className={`fa ${openMenu === "payment"
-                          ? "fa-chevron-up"
-                          : "fa-chevron-down"
+                        ? "fa-chevron-up"
+                        : "fa-chevron-down"
                         }`}
                     ></span>
                   </Link>

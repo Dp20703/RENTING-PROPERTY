@@ -5,6 +5,7 @@ import Footer from "../Common/Footer";
 import checkSession from "../auth/authService";
 import { toast } from "react-toastify";
 import axios from "axios";
+import { BACKEND_URL } from "../../constant";
 
 const Profile = () => {
   return (
@@ -75,7 +76,7 @@ function Main() {
     try {
       const formData = new FormData();
       formData.append("profilePic", profile.profilePic);
-      await axios.post("http://localhost:8000/updateProfileAdmin", formData)
+      await axios.post(`${BACKEND_URL}/updateProfileAdmin`, formData)
       setIsEditing(false);
       toast.success("Profile Updated Successfully");
     } catch (error) {
@@ -106,7 +107,7 @@ function Main() {
                       className="img-responsive avatar-view rounded-circle"
                       src={
                         selectedFile ||
-                        `http://localhost:8000/images/profilePic/${profile.profilePic}` ||
+                        `${BACKEND_URL}/images/profilePic/${profile.profilePic}` ||
                         "/assets/images/nodp.webp"
                       }
                       alt="profile pic"
@@ -151,8 +152,8 @@ function Main() {
                     <>
                       <h3>{profile.firstName}</h3>
                       <p>
-                      <i className="fa fa-envelope" />{" "}
-                      {profile.email}</p>
+                        <i className="fa fa-envelope" />{" "}
+                        {profile.email}</p>
                       {/* <ul className="list-unstyled user_data">
                         <li>
                           <i className="fa fa-info user-profile-icon" />{" "}

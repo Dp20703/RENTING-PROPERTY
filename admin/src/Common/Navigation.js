@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
 import checkSession from "../auth/authService";
+import { BACKEND_URL } from "../../constant";
 
 const Navigation = () => {
   useEffect(() => {
@@ -81,7 +82,7 @@ function Main() {
   }, []);
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/logout");
+      await axios.get(`${BACKEND_URL}/logout`);
       toast.success("Logged out successfully!", {
         onClose: () => window.location.reload(),
       });
@@ -114,9 +115,9 @@ function Main() {
                 aria-expanded="false"
               >
                 <img
-                  src={`http://localhost:8000/images/profilePic/${userData.profilePic}`}
+                  src={`${BACKEND_URL}/images/profilePic/${userData.profilePic}`}
                   alt="no-image"
-                  style={{objectFit: "cover",objectPosition: "center"}}
+                  style={{ objectFit: "cover", objectPosition: "center" }}
                 />
                 Admin
               </Link>

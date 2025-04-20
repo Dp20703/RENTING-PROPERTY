@@ -4,6 +4,7 @@ import Navigation from "../Common/Navigation";
 import Footer from "../Common/Footer";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../../constant";
 
 const Inquiries = () => {
   return (
@@ -23,7 +24,7 @@ function Main() {
   const getData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/fetch_all_inquiry"
+        `${BACKEND_URL}/fetch_all_inquiry`
       );
       const responseData = response.data.data || [];
       const revesedData = responseData.reverse();
@@ -56,7 +57,7 @@ function Main() {
     setLoading({ ...loading, [id]: true });
 
     try {
-      const res = await axios.post("http://localhost:8000/respond_contactus", {
+      const res = await axios.post(`${BACKEND_URL}/respond_contactus`, {
         contactId: id,
         responseMessage: responses[id],
       });
@@ -119,10 +120,10 @@ function Main() {
                         <strong>Status: </strong>
                         <span
                           className={`badge ${inquiry.status === "Pending"
-                              ? "bg-warning"
-                              : inquiry.status === "Resolved"
-                                ? "bg-success text-light"
-                                : "bg-danger text-light"
+                            ? "bg-warning"
+                            : inquiry.status === "Resolved"
+                              ? "bg-success text-light"
+                              : "bg-danger text-light"
                             }`}
                         >
                           {inquiry.status}
