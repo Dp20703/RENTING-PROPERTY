@@ -4,6 +4,7 @@ import Footer from "../Common/Footer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../constant";
 
 const Contact = () => {
   return (
@@ -92,7 +93,7 @@ function ContactForm() {
     if (!validate()) return;
 
     try {
-      await axios.post("http://localhost:8000/contactUs", data);
+      await axios.post(`${BACKEND_URL}/contactUs`, data);
       toast.success("Message Sent Successfully!!", {
         onClose: () =>
           setData({

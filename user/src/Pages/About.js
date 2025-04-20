@@ -6,6 +6,7 @@ import Header from "../Common/Header";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Rating } from "@mui/material";
+import { BACKEND_URL } from "../constant";
 
 const About = () => {
   return (
@@ -181,7 +182,7 @@ function ContactForm() {
     if (!validateComplaintForm()) return;
 
     try {
-      await axios.post("http://localhost:8000/send_complaint", data);
+      await axios.post(`${BACKEND_URL}/send_complaint`, data);
       toast.success("Message Sent Successfully!!", {
         onClose: () =>
           setData({
@@ -202,7 +203,7 @@ function ContactForm() {
     if (!validateFeedbackForm()) return;
 
     try {
-      await axios.post("http://localhost:8000/send_feedback", feedback);
+      await axios.post(`${BACKEND_URL}/send_feedback`, feedback);
       toast.success("Message Sent Successfully!!", {
         onClose: () =>
           setFeedback({

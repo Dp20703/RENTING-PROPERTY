@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../constant";
 
 const MyBookings = () => {
   return (
@@ -22,7 +23,7 @@ function Main() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/get_user_booking");
+      const response = await axios.get(`${BACKEND_URL}/get_user_booking`);
       setBookings(response.data.data);
       console.log(response.data.data);
     } catch (error) {
@@ -38,7 +39,7 @@ function Main() {
   const handleCancelBooking = async (e, requestId) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/cancel_booking", { requestId });
+      await axios.post(`${BACKEND_URL}/cancel_booking`, { requestId });
       toast.success("Booking Cancelled Successfully!!", {
         onClose: () => fetchData(),
       });
@@ -79,7 +80,7 @@ function Main() {
       const months = Math.ceil(days / 30); // Round up to nearest full month
       const totalPrice = months * booking.propertyPrice;
 
-      const orderResponse = await axios.post("http://localhost:8000/generateOrderId", {
+      const orderResponse = await axios.post(`${BACKEND_URL}/generateOrderId`, {
         totalPrice: totalPrice,
       });
 
@@ -99,7 +100,7 @@ function Main() {
         handler: async function (response) {
           try {
             // Step 3: Verify the payment
-            const verifyResponse = await axios.post("http://localhost:8000/make_payment", {
+            const verifyResponse = await axios.post(`${BACKEND_URL}/make_payment`, {
               requestId: booking._id,
               property_Id: booking.property_Id,
               owner_Id: booking.owner_Id,

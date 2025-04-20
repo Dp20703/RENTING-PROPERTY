@@ -4,6 +4,7 @@ import Footer from "../Common/Footer";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../constant";
 
 const EditProperty = () => {
   return (
@@ -21,7 +22,7 @@ function Main() {
   const navigate = useNavigate();
   const [errors, setErrors] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
-  
+
   // State for managing form data
   const [formData, setFormData] = useState({
     property_Id: location.state._id,
@@ -53,7 +54,7 @@ function Main() {
     "Garden",
     "Power Backup",
   ];
-  
+
   // Function to validate form data
   const validateForm = () => {
     const newErrors = {};
@@ -84,7 +85,7 @@ function Main() {
       isValid = false;
     }
 
-  // Address validation  
+    // Address validation  
     if (!formData.address.trim()) {
       newErrors.address = "Address is required";
       isValid = false;
@@ -129,7 +130,7 @@ function Main() {
       isValid = false;
     }
 
-   // Bedrooms validation 
+    // Bedrooms validation 
     if (!formData.bedrooms) {
       newErrors.bedrooms = "Bedrooms count is required";
       isValid = false;
@@ -284,7 +285,7 @@ function Main() {
     }
 
     try {
-      await axios.post("http://localhost:8000/edit_property", submitData);
+      await axios.post(`${BACKEND_URL}/edit_property`, submitData);
       toast.success("Property Updated Successfully", {
         onClose: () => navigate("/view_property"),
       });
@@ -337,9 +338,8 @@ function Main() {
                 rows="4"
                 value={formData.description}
                 onChange={handleChange}
-                className={`form-control ${
-                  errors.description ? "is-invalid" : ""
-                }`}
+                className={`form-control ${errors.description ? "is-invalid" : ""
+                  }`}
               ></textarea>
               {errors.description && (
                 <div className="invalid-feedback">{errors.description}</div>
@@ -354,9 +354,8 @@ function Main() {
                 placeholder="Enter city"
                 value={formData.location}
                 onChange={handleChange}
-                className={`form-control ${
-                  errors.location ? "is-invalid" : ""
-                }`}
+                className={`form-control ${errors.location ? "is-invalid" : ""
+                  }`}
               />
               {errors.location && (
                 <div className="invalid-feedback">{errors.location}</div>
@@ -402,9 +401,8 @@ function Main() {
                 name="propertyType"
                 value={formData.propertyType}
                 onChange={handleChange}
-                className={`form-control ${
-                  errors.propertyType ? "is-invalid" : ""
-                }`}
+                className={`form-control ${errors.propertyType ? "is-invalid" : ""
+                  }`}
               >
                 <option value="">Select Type</option>
                 <option value="Residential">Residential</option>
@@ -462,9 +460,8 @@ function Main() {
                 placeholder="Enter number of bedrooms"
                 value={formData.bedrooms}
                 onChange={handleChange}
-                className={`form-control ${
-                  errors.bedrooms ? "is-invalid" : ""
-                }`}
+                className={`form-control ${errors.bedrooms ? "is-invalid" : ""
+                  }`}
                 min="0"
               />
               {errors.bedrooms && (
@@ -480,9 +477,8 @@ function Main() {
                 placeholder="Enter number of bathrooms"
                 value={formData.bathrooms}
                 onChange={handleChange}
-                className={`form-control ${
-                  errors.bathrooms ? "is-invalid" : ""
-                }`}
+                className={`form-control ${errors.bathrooms ? "is-invalid" : ""
+                  }`}
                 min="0"
               />
               {errors.bathrooms && (
@@ -516,9 +512,8 @@ function Main() {
             name="propertyIdentityType"
             value={formData.propertyIdentityType}
             onChange={handleChange}
-            className={`form-control ${
-              errors.propertyIdentityType ? "is-invalid" : ""
-            }`}
+            className={`form-control ${errors.propertyIdentityType ? "is-invalid" : ""
+              }`}
           >
             <option value="">Select Property Proof Type</option>
             <option value="Sale Deed">Sale Deed</option>
@@ -542,9 +537,8 @@ function Main() {
             name="propertyProof"
             accept=".pdf,.jpg,.png,.docx"
             onChange={handlePropertyProofChange}
-            className={`form-control ${
-              errors.propertyProof ? "is-invalid" : ""
-            }`}
+            className={`form-control ${errors.propertyProof ? "is-invalid" : ""
+              }`}
           />
           {errors.propertyProof && (
             <div className="invalid-feedback">{errors.propertyProof}</div>

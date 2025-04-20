@@ -4,6 +4,7 @@ import Banner from "../Common/Banner";
 import Footer from "../Common/Footer";
 import { Link, useLocation } from "react-router-dom";
 import axios from "axios";
+import { BACKEND_URL } from "../constant";
 
 const Properties = () => {
   return (
@@ -23,8 +24,9 @@ const Main = () => {
   const fetchAllProperties = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/fetch_all_property"
+        `${BACKEND_URL}/fetch_all_property`
       );
+      console.log("FETCH ALL PROPERTY HIT : ", `${BACKEND_URL}/fetch_all_property`, "DATA FROM RESPONE : ", response.data);
       const responseData = response.data.data || [];
       const revesedData = responseData.reverse();
       setPropertiesData(revesedData);
@@ -59,7 +61,7 @@ const Main = () => {
                 <div className="grids3-info col-lg-4 col-md-6 mt-5" key={index}>
                   <Link id="link" to="/properties_single" state={property}>
                     <img
-                      src={`http://localhost:8000/images/propertyImg/${property?.images[0]}`}
+                      src={`${BACKEND_URL}/images/propertyImg/${property?.images[0]}`}
                       className="img-fluid"
                       style={{
                         height: "250px",

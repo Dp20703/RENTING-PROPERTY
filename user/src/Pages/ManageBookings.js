@@ -4,6 +4,7 @@ import Footer from "../Common/Footer";
 import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
 import axios from "axios";
 import Swal from "sweetalert2";
+import { BACKEND_URL } from "../constant";
 
 const ManageRequest = () => {
   return (
@@ -21,7 +22,7 @@ function Main() {
   const fetchData = async () => {
     try {
       const response = await axios.get(
-        "http://localhost:8000/get_property_request"
+        `${BACKEND_URL}/get_property_request`
       );
       setRequests(response.data.data);
       console.log(response.data.data);
@@ -47,7 +48,7 @@ function Main() {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await axios.post("http://localhost:8000/update_request", {
+          await axios.post(`${BACKEND_URL}/update_request`, {
             requestId: id,
             status: newStatus,
           });
@@ -110,15 +111,14 @@ function Main() {
                   <td>{new Date(request.endDate).toLocaleDateString()}</td>
                   <td>
                     <span
-                      className={`badge ${
-                        request.status === "Approved" ||
+                      className={`badge ${request.status === "Approved" ||
                         request.status === "Paid"
-                          ? "badge-success"
-                          : request.status === "Rejected" ||
-                            request.status === "Canceled"
+                        ? "badge-success"
+                        : request.status === "Rejected" ||
+                          request.status === "Canceled"
                           ? "badge-danger"
                           : "badge-warning"
-                      }`}
+                        }`}
                     >
                       {request.status}
                     </span>

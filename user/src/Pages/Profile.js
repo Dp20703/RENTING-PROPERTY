@@ -6,6 +6,7 @@ import Footer from "../Common/Footer";
 import { toast } from "react-toastify";
 import axios from "axios";
 import checkSession from "../auth/authService";
+import { BACKEND_URL } from "../constant";
 
 const Profile = () => {
   return (
@@ -23,7 +24,7 @@ function Main() {
   const [passwordVisible, setPasswordVisible] = useState(false);// State to manage password visibility
   const [selectedFile, setSelectedFile] = useState(null);// State to store Selected File Temporary
 
-// State to store user data
+  // State to store user data
   const [user, setUser] = useState({
     firstName: "",
     lastName: "",
@@ -31,7 +32,7 @@ function Main() {
     phoneNo: "",
     bio: "",
     profilePic: "",
-});
+  });
 
   // Handle input changes
   const handleChange = (e) => {
@@ -64,7 +65,7 @@ function Main() {
       newErrors.phoneNo = "Phone number must be 10 digits";
     }
 
-   
+
     // Password Validation (Minimum 8 Characters + Strong Pattern)
     const strongPasswordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*])[A-Za-z\d!@#$%^&*]{8,}$/;
 
@@ -110,8 +111,8 @@ function Main() {
       formData.append("profilePic", user.profilePic);
 
       user.profilePic !== "/assets/images/nodp.webp"
-        ? await axios.post("http://localhost:8000/update_profile", formData)
-        : await axios.post("http://localhost:8000/update_profile", {
+        ? await axios.post(`${BACKEND_URL}/update_profile`, formData)
+        : await axios.post(`${BACKEND_URL}/update_profile`, {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
@@ -160,7 +161,7 @@ function Main() {
   // Logout Function
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/logout");
+      await axios.get(`${BACKEND_URL}/logout`);
       toast.success("Logged out successfully!", {
         onClose: () => window.location.reload(),
       });
@@ -178,12 +179,12 @@ function Main() {
         {/* Profile Image Section */}
         <div className="position-relative d-flex justify-content-center">
           <Link
-            to={`http://localhost:8000/images/profilePic/${user.profilePic}`}
+            to={`${BACKEND_URL}/images/profilePic/${user.profilePic}`}
           >
             <img
               src={
                 selectedFile ||
-                `http://localhost:8000/images/profilePic/${user.profilePic}` ||
+                `${BACKEND_URL}/images/profilePic/${user.profilePic}` ||
                 "/assets/images/nodp.webp"
               }
               alt="Profile"

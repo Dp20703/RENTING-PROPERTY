@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../constant";
 
 const SignUP = () => {
   return (
@@ -101,8 +102,8 @@ function Main() {
       formData.append("role", data.role);
 
       data.role === "user"
-        ? await axios.post("http://localhost:8000/register_user", data)
-        : await axios.post("http://localhost:8000/register_owner", formData);
+        ? await axios.post(`${BACKEND_URL}/register_user`, data)
+        : await axios.post(`${BACKEND_URL}/register_owner`, formData);
 
       toast.success("Registration successful", {
         onClose: () => {
@@ -130,7 +131,7 @@ function Main() {
               <div className="form23">
                 <h6>Register a new account</h6>
                 <form
-                  action={"http://localhost:8000/register_user"}
+                  action={`${BACKEND_URL}/register_user`}
                   method="post"
                 >
                   <div className="d-flex gap-2">

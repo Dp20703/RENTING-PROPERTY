@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../constant";
 
 function ForgotPassword() {
   const navigate = useNavigate();
@@ -13,7 +14,7 @@ function ForgotPassword() {
 
     setLoading(true);
     try {
-      await axios.post("http://localhost:8000/sendOtp", { email });
+      await axios.post(`${BACKEND_URL}/sendOtp`, { email });
       toast.success("Email Sent Successfully!!", {
         onClose: () => navigate("/verifyOTP", { state: email }),
       });

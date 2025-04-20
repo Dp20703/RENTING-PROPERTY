@@ -4,6 +4,7 @@ import Footer from "../Common/Footer";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
+import { BACKEND_URL } from "../constant";
 
 const ManageProperty = () => {
   return (
@@ -20,7 +21,7 @@ function Main() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/manage_property");
+      const response = await axios.get(`${BACKEND_URL}/manage_property`);
       setProperties(response.data.data);
     } catch (error) {
       console.error(error);
@@ -46,7 +47,7 @@ function Main() {
 
     if (result.isConfirmed) {
       try {
-        await axios.post("http://localhost:8000/delete_property", {
+        await axios.post(`${BACKEND_URL}/delete_property`, {
           property_Id,
         });
 
@@ -67,7 +68,7 @@ function Main() {
             <div key={index} className="col-md-6 mb-4">
               <div className="card shadow-sm">
                 <img
-                  src={`http://localhost:8000/images/propertyImg/${property.images[0]}`}
+                  src={`${BACKEND_URL}/images/propertyImg/${property.images[0]}`}
                   className="card-img-top"
                   height={"350px"}
                   style={{ objectFit: "cover" }}

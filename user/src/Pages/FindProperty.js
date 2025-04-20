@@ -5,6 +5,7 @@ import Footer from "../Common/Footer";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import { BACKEND_URL } from "../constant";
 
 const FindProperty = () => {
   return (
@@ -39,7 +40,7 @@ function Main() {
     e.preventDefault();
     try {
       const response = await axios.post(
-        "http://localhost:8000/search_property",
+        `${BACKEND_URL}/search_property`,
         data
       );
       console.log(response.data.data);

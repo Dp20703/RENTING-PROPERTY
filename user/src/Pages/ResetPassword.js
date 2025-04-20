@@ -2,6 +2,7 @@ import axios from "axios";
 import React, { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../constant";
 
 function ResetPassword() {
   const navigate = useNavigate();
@@ -47,7 +48,7 @@ function ResetPassword() {
     setLoading(true);
 
     try {
-      await axios.post("http://localhost:8000/changePassword", data);
+      await axios.post(`${BACKEND_URL}/changePassword`, data);
       toast.success("Password Reset Successfully!!", {
         onClose: () => navigate("/login"),
       });

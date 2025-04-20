@@ -4,6 +4,7 @@ import Footer from "../Common/Footer";
 import { useLocation, useNavigate } from "react-router-dom";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../constant";
 
 const Booking = () => {
   return (
@@ -62,7 +63,7 @@ function Main() {
 
     setError(""); // Clear previous errors
     try {
-      await axios.post("http://localhost:8000/send_request", formData);
+      await axios.post(`${BACKEND_URL}/send_request`, formData);
       toast.success("Booking Confirmed!", {
         onClose: () => navigate("/my_bookings"),
       });

@@ -1,11 +1,12 @@
 // authService.js
 import axios from "axios";
+import { BACKEND_URL } from "../constant.js";
 
 axios.defaults.withCredentials = true;
 
 const checkSession = async () => {
   try {
-    const result = await axios.get("http://localhost:8000/session");
+    const result = await axios.get(`${BACKEND_URL}/session`);
     return {
       sessionData: result.data.sessionData.session,
       isAuth: true,

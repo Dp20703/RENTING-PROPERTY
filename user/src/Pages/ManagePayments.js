@@ -5,6 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import axios from "axios";
 import { jsPDF } from "jspdf";
 import autoTable from "jspdf-autotable";
+import { BACKEND_URL } from "../constant";
 
 const ManagePayments = () => {
   return (
@@ -22,7 +23,7 @@ function Main() {
 
   const fetchData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/view_payment");
+      const response = await axios.get(`${BACKEND_URL}/view_payment`);
       setPayments(response.data.data.reverse());
     } catch (error) {
       console.error(error);
@@ -203,13 +204,12 @@ function Main() {
                   <td>{payment.transactionId}</td>
                   <td>
                     <span
-                      className={`badge ${
-                        payment.status === "Success"
+                      className={`badge ${payment.status === "Success"
                           ? "badge-success"
                           : payment.status === "Failed"
-                          ? "badge-danger"
-                          : "badge-warning"
-                      }`}
+                            ? "badge-danger"
+                            : "badge-warning"
+                        }`}
                     >
                       {payment.status}
                     </span>

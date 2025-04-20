@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import OTPInput from "react-otp-input";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../constant";
 
 function VerifyOTP() {
   const location = useLocation();
@@ -14,7 +15,7 @@ function VerifyOTP() {
     e.preventDefault();
 
     try {
-      await axios.post("http://localhost:8000/verifyOtp", {
+      await axios.post(`${BACKEND_URL}/verifyOtp`, {
         email: Email,
         otp: Email_OTP,
       });

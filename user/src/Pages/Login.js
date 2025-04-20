@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import { GoogleLogin } from "@react-oauth/google";
 import { GoogleOAuthProvider } from "@react-oauth/google";
+import { BACKEND_URL } from "../constant";
 const Login = () => {
   return (
     <div>
@@ -42,7 +43,7 @@ function Main() {
     e.preventDefault();
     if (!validate()) return;
     try {
-      const response = await axios.post("http://localhost:8000/login", data);
+      const response = await axios.post(`${BACKEND_URL}/login`, data);
       localStorage.setItem("role", response.data.userDetails.session.role);
 
       toast.success("Login Successfully!!", {
@@ -55,9 +56,14 @@ function Main() {
 
   const handleSuccess = async (response) => {
     try {
-      const res = await axios.post("http://localhost:8000/auth/google", {
+      const res = await axios.post(`${BACKEND_URL}/auth/google`, {
         credential: response.credential,
       });
+
+      console.log(`${BACKEND_URL}/auth/google`
+        
+      );
+
 
       // Save the token and role to localStorage
       localStorage.setItem("token", res.data.token);

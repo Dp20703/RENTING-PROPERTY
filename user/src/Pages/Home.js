@@ -11,6 +11,7 @@ import { Main } from "./Properties";
 import CountUp from "react-countup";
 import { useInView } from "react-intersection-observer";
 import axios from "axios";
+import { BACKEND_URL } from "../constant";
 
 
 const Home = () => {
@@ -255,7 +256,10 @@ const Specification = () => {
 
   const getData = async () => {
     try {
-      const response = await axios.get("http://localhost:8000/getDashboardCounts");
+      const response = await axios.get(`${BACKEND_URL}/getDashboardCounts`);
+      console.log("API CALL ON : ", `${BACKEND_URL}/getDashboardCounts`);
+      console.log(response);
+
       const responseData = response.data.data;
       setData(responseData);
     } catch (error) {
@@ -477,7 +481,7 @@ const Testimonials = () => {
                           height: "100px",
                           width: "100px",
                           objectFit: 'cover',
-                          objectPosition:'bottom'
+                          objectPosition: 'bottom'
                         }}
                       />
                     </div>

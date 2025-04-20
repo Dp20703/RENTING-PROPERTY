@@ -2,10 +2,11 @@ import React, { useEffect, useState } from "react";
 import Header from "../Common/Header";
 import Banner from "../Common/Banner";
 import Footer from "../Common/Footer";
-import { Link,useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import checkSession from "../auth/authService";
 import axios from "axios";
 import { toast } from "react-toastify";
+import { BACKEND_URL } from "../constant";
 
 const PropertiesSingle = () => {
   return (
@@ -65,12 +66,12 @@ const Main = () => {
                   {propertyDetailss?.images.map((img, index) => (
                     <div key={index} id={"property-card"} className="large-image p-2">
                       <Link
-                        to={`http://localhost:8000/images/propertyImg/${img}`}
+                        to={`${BACKEND_URL}/images/propertyImg/${img}`}
                         target="_top"
                         rel="noopener noreferrer"
                       >
                         <img
-                          src={`http://localhost:8000/images/propertyImg/${img}`}
+                          src={`${BACKEND_URL}/images/propertyImg/${img}`}
                           className="img-fluid rounded shadow"
                           style={{
                             width: "100%",
@@ -237,7 +238,7 @@ const RentForm = (props) => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("http://localhost:8000/add_product_inquiry", formData);
+      await axios.post(`${BACKEND_URL}/add_product_inquiry`, formData);
       toast.success("Inquiry Added Successfully!!", {
         autoClose: 1000,
         onClose: () => {

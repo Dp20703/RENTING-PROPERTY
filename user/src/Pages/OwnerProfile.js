@@ -6,6 +6,7 @@ import checkSession from "../auth/authService";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { Link } from "react-router-dom";
+import { BACKEND_URL } from "../constant";
 
 const Profile = () => {
   return (
@@ -122,8 +123,8 @@ function Main() {
       formData.append("profilePic", user.profilePic);
 
       user.profilePic !== "/assets/images/nodp.webp"
-        ? await axios.post("http://localhost:8000/update_profile", formData)
-        : await axios.post("http://localhost:8000/update_profile", {
+        ? await axios.post(`${BACKEND_URL}/update_profile`, formData)
+        : await axios.post(`${BACKEND_URL}/update_profile`, {
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
@@ -167,7 +168,7 @@ function Main() {
   // Handle Logout
   const handleLogout = async () => {
     try {
-      await axios.get("http://localhost:8000/logout");
+      await axios.get(`${BACKEND_URL}/logout`);
       toast.success("Logged out successfully!", {
         onClose: () => window.location.reload(),
       });
@@ -185,12 +186,12 @@ function Main() {
       <div className="card shadow-lg p-4 text-center w-75">
         {/* Profile  Image Section */}
         <div className="position-relative d-inline-block">
-          <Link to={`http://localhost:8000/images/profilePic/${user.profilePic}`}>
+          <Link to={`${BACKEND_URL}/images/profilePic/${user.profilePic}`}>
 
             <img
               src={
                 selectedFile ||
-                `http://localhost:8000/images/profilePic/${user.profilePic}` ||
+                `${BACKEND_URL}/images/profilePic/${user.profilePic}` ||
                 "/assets/images/nodp.webp"
               }
               alt="Profile"

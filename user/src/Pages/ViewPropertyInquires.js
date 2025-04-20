@@ -4,6 +4,7 @@ import Footer from "../Common/Footer";
 import "bootstrap/dist/css/bootstrap.min.css"; // Ensure Bootstrap is imported
 import axios from "axios";
 import { useLocation } from "react-router-dom";
+import { BACKEND_URL } from "../constant";
 
 function ViewPropertyInquires() {
   return (
@@ -22,7 +23,7 @@ function Main() {
   const fetchData = async () => {
     try {
       const response = await axios.post(
-        "http://localhost:8000/get_property_inquiries",
+        `${BACKEND_URL}/get_property_inquiries`,
         {
           propertyId: location.state._id,
         }
