@@ -26,6 +26,8 @@ function Main() {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
+      console.log("inside try of handle login of admin");
+
       const response = await axios.post(
         `${BACKEND_URL}/admin_login`, { withCredentials: true },
         data
@@ -37,6 +39,7 @@ function Main() {
         onClose: () => window.location.reload(),
       });
     } catch (error) {
+      console.error("Error logging in:", error);
       toast.error(error.response.data.message);
     }
   };
