@@ -79,6 +79,7 @@ app.use(
   })
 );
 
+// Session
 const isProduction = process.env.IS_PRODUCTION;
 
 app.use(
@@ -94,6 +95,14 @@ app.use(
     },
   })
 );
+
+// 🛡️ Override COOP (Fix for Google Sign-In popup)
+app.use((req, res, next) => {
+  res.removeHeader("Cross-Origin-Opener-Policy");
+  res.removeHeader("Cross-Origin-Embedder-Policy");
+  res.setHeader("Cross-Origin-Opener-Policy", "unsafe-none");
+  next();
+});
 
 
 app.use("/images", express.static(path.join(__dirname, "images")));
