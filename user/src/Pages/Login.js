@@ -63,10 +63,7 @@ function Main() {
         withCredentials: true
       });
 
-      console.log(`${BACKEND_URL}/auth/google`
-
-      );
-
+      console.log("Backend response:", res.data);
 
       // Save the token and role to localStorage
       localStorage.setItem("token", res.data.token);
